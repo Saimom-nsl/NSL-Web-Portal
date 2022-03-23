@@ -9,7 +9,7 @@ const { createRoll, getAllRoles, getSingleRole, updateSingleRole, deleteSingleRo
 
 //all role must be on top
 router.route("/roles")
-    .get(Authorize, isMasterUser, getAllRoles);
+    .get(getAllRoles);
 
 router.route("/:id")
     .get(Authorize, isMasterUser, getSingleRole)

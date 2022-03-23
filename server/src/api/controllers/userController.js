@@ -82,7 +82,7 @@ module.exports.userSignin = async (req, res) => {
         email: user.email,
         lastLoginTime: user.lastLogin
     }, "1d");
-    return res.cookie("jwtoken",token).status(200).json({message:"Successfully Login"})
+    return res.cookie("jwtoken",token).status(200).json({message:"Successfully Login",email:user.email,id:user._id,token:token})
     // return res.status(200).json({ "message": "Successfully login", "nsl_tn": token });
 }
 

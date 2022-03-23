@@ -36,8 +36,11 @@ module.exports.isEmailAlreadyUsed = async(req, res, next)=> {
         if (isErrorFounds(errors)) res.status(400).json(errors);
         const {email} = req.body
         const user = await User.findOne({email});
-        if (user) res.status(400).json({"message" : "Email already used"});
-        else next();
+        if (user) return res.status(400).json({"message" : "Email already used"});
+        else {
+            next()
+        }
+            
     }
 
 module.exports.passwordVerification = async(req, res, next)=> {

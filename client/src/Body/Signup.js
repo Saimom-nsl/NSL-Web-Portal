@@ -57,11 +57,9 @@ const Signup = () => {
 
     //send all data to database
     const postData = async (e) => {
-        // console.log(user.date);
-        // var role = '62394d91cc93e3138cbf616a'
-        console.log(role);
         e.preventDefault();
         const { firstName, lastName, email, employmentDate,role } = user
+        console.log(user);
         const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/employee/employeeinvites`, {
             method: "POST",
             headers: {
@@ -79,16 +77,8 @@ const Signup = () => {
             // setMessage(data.message)
         }
         else {
-            setUser({
-                name: "",
-                email: "",
-                password: "",
-                cpassword: ""
-            })
-
             console.log(data)
-            // setMessage("Registration Successful!!")
-            navigate('/login')
+            // navigate('/login')
         }
 
     }

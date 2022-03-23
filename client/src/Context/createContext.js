@@ -18,6 +18,7 @@ const Createcontext = () => {
           data: message
       })
   }
+  
   return (
     <ProjectContext.Provider value={{ ...state, setMsg,initialState}}>
         <App />

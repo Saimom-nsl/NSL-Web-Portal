@@ -21,15 +21,20 @@ const leaveRequestSchema = Schema({
         type: Date,
         required: true
     },
-
     isApproved: {
-        type: [
-            {
-                approvedBy: Schema.Types.ObjectId,
-                approved: Boolean
-            }
-            ]
+        type: String,
+        enum: ["approved", "rejected", "pending"],
+        default: "pending"
     }
+
+    // isApproved: {
+    //     type: [
+    //         {
+    //             approvedBy: Schema.Types.ObjectId,
+    //             approved: Boolean
+    //         }
+    //         ]
+    // }
 
 
 }, {timestamps: true});

@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import Cookies from 'js-cookie'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { ProjectContext } from '../Context/createContext'
 // import Message from '../Alert/Message'
 import signup from '../images/signupImage.jpg'
 const Signup = () => {
+    const {initialState} =useContext(ProjectContext)
     const navigate = useNavigate();
     const [user, setUser] = useState({
         firstName: "", lastName: "", email: "", employmentDate: "", role:""
     })
-
-
+    var token = Cookies.get('jwtoken')
+    // console.log(initialState.user[0]);
+    // if(initialState.user[0] === undefined) token = ''
+    // else token = initialState.user[0].token
     //To store all the roles to show after calling getRole Function
     const [role,setRole] = useState([])
     const [message, setMessage] = useState(null)
     let name, value;
 
-
-
     //Tracking All the input field change 
     const eventHandle = (e) => {
         name = e.target.name
         value = e.target.value
-        console.log(name, ":", value);
+        // console.log(name, ":", value);
         if (name==='role'){
             const result = role.filter((val)=>{
                 return val.name === value
@@ -35,10 +38,6 @@ const Signup = () => {
     const getRole = async (e) => {
         const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/role/roles`, {
             method: "GET",
-            headers: {
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzk1MjFhZDI2ZjExYmI4MjczYjJiYyIsImVtYWlsIjoib25lc29sdXRpb25AZ21haWwuY29tIiwibGFzdExvZ2luVGltZSI6IjIwMjItMDMtMjJUMTA6MjQ6MTguODA4WiIsImlhdCI6MTY0Nzk0NDc3OSwiZXhwIjoxNjQ4MDMxMTc5fQ.bTvnieCHmN2nmgHWeNV8OyqRAtekPep_LlHTjNFbvmo`
-            },
-            credentials: 'include'
         })
 
         const data = await res.json()
@@ -63,8 +62,8 @@ const Signup = () => {
         const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/employee/employeeinvites`, {
             method: "POST",
             headers: {
-                // "Content-Type": "application/json",
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzk1MjFhZDI2ZjExYmI4MjczYjJiYyIsImVtYWlsIjoib25lc29sdXRpb25AZ21haWwuY29tIiwibGFzdExvZ2luVGltZSI6IjIwMjItMDMtMjJUMTA6MjQ6MTguODA4WiIsImlhdCI6MTY0Nzk0NDc3OSwiZXhwIjoxNjQ4MDMxMTc5fQ.bTvnieCHmN2nmgHWeNV8OyqRAtekPep_LlHTjNFbvmo`
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 firstName, lastName, email, employmentDate, role
@@ -139,19 +138,23 @@ const Signup = () => {
 
                                     {/* select Box */}
 
-                                    <div className="col-md-4">
-                                        <select className="form-select form-select-sm mt-5" name='role'  aria-label=".form-select-sm example"
+                                    <div className="input-group mt-3">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text">
+                                                <span className="fa fa-male"></span>
+                                            </span>
+                                        </div>
+                                        <select className="form-select form-select-sm " name='role' defaultValue={'Role'} aria-label=".form-select-sm example"
                                         onChange={eventHandle}
                                              >
                                             <option value="Role" disabled="disabled">Select Role</option>
                                             {
                                                 role.map((val, ind) => {
-                                                    return <option value={val.name} rid={val._id} key={ind}>{val.name}</option>
+                                                    return <option value={val.name} key={ind}>{val.name}</option>
                                                 })
                                             }
 
                                         </select>
-                                       
                                     </div>
 
                                     {/* Button for posting data */}
@@ -175,7 +178,6 @@ const Signup = () => {
 
             </div>
         </div>
-
     )
 }
 

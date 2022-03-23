@@ -32,7 +32,7 @@ module.exports.isMasterUser = async(req, res, next)=> {
 }
 
 module.exports.isEmailAlreadyUsed = async(req, res, next)=> {
-        const errors = validationMessages(validationResult(req.body.email).mapped());
+        const errors = validationMessages(validationResult(req).mapped());
         if (isErrorFounds(errors)) res.status(400).json(errors);
         const {email} = req.body
         const user = await User.findOne({email});

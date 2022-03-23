@@ -1,0 +1,20 @@
+[
+    {
+            "resourceName": "employee",
+            "rolePermission": ["admin", "superadmin"]
+        },
+        {
+            "resourceName": "leave",
+            "rolePermission": ["admin", "superadmin"]
+        },
+        {
+            "resourceName": "project",
+            "rolePermission": ["admin", "teamlead"]
+
+        },
+        {
+            "resourceName": "projecttask",
+            "rolePermission": ["teamlead"]
+        }
+    
+    ]

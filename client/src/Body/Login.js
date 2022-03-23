@@ -9,12 +9,13 @@ import login from '../images/login.png'
 
 const Login = () => {
     // const { Login, msg, clearMessage } = useContext(ProjectContext);
-    const {setMsg,initialState} =useContext(ProjectContext)
+    const {setMsg,initialState,userInfo} =useContext(ProjectContext)
     const [message,setMessage] = useState('')
     const navigate = useNavigate();
     const [user, setUser] = useState({
         email: "", password: ""
     })
+    console.log(initialState);
     let name, value;
     const eventHandle = (e) => {
         name = e.target.name
@@ -36,16 +37,19 @@ const Login = () => {
             credentials: 'include'
         })
         const data = await res.json()
+        // console.log(data);
         if (res.status !== 200) {
             // clearMessage()
             // setMessage(data.message)
-            console.log(res.message);
+            console.log(data.message);
 
         }
         else {
             // clearMessage()
+            userInfo(data)
             setMsg("login successful")
             setMessage(initialState.msg)
+            
             // Login()
             // navigate('/')
 

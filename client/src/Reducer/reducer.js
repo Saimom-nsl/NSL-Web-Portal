@@ -3,4 +3,5 @@ export const reducer = (state,action) => {
         state.msg = action.data
         return { ...state, msg: state.msg }
     }
+    
 }

@@ -63,7 +63,7 @@ const Signup = () => {
         const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/employee/employeeinvites`, {
             method: "POST",
             headers: {
-                // "Content-Type": "application/json",
+                "Content-Type": "application/json",
                 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzk1MjFhZDI2ZjExYmI4MjczYjJiYyIsImVtYWlsIjoib25lc29sdXRpb25AZ21haWwuY29tIiwibGFzdExvZ2luVGltZSI6IjIwMjItMDMtMjJUMTA6MjQ6MTguODA4WiIsImlhdCI6MTY0Nzk0NDc3OSwiZXhwIjoxNjQ4MDMxMTc5fQ.bTvnieCHmN2nmgHWeNV8OyqRAtekPep_LlHTjNFbvmo`
             },
             body: JSON.stringify({

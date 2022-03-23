@@ -4,6 +4,7 @@ const { isErrorFounds, validationMessages } = require("../helpers/errorHelper");
 const { signinToken, tokenDecoder } = require("../helpers/TokenCreation");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { passwordHashing } = require("../helpers/commonHelper");
 
 //employee invitaion
@@ -15,11 +16,12 @@ module.exports.employeeInvitation = async(req, res)=> {
     const newEmployee = await new Employee({firstName, lastName, employmentDate, email});
     await new User({email, employeeId: newEmployee, role}).save();
     await newEmployee.save();
-    const token = await signinToken({email}, "1h");
-    const inviteUrl = `${process.env.CLIENT_URL}/api/employee/activation/${token}?email=${email}&id=${newEmployee._id}`
+    const token = await signinToken({email, id: newEmployee._id}, "1h");
+    const inviteUrl = `${process.env.CLIENT_URL}/api/employee/activation/${token}?email=${email}&id=${newEmployee._id}`;
+    const reactUrl = `localhost:3000/activation/${token}?email=${email}&id=${newEmployee._id}`;
     //send email to employee for activation
 
-    res.status(200).json({"message": "Your request has been registered",  "token":inviteUrl})
+    res.status(200).json({"message": "Your request has been registered",  "token":reactUrl,})
 }
 
 //employee activation

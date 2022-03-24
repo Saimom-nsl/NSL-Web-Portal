@@ -4,7 +4,6 @@ const leaveRequestSchema = Schema({
     applyer: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true,
     },
     leaveType: {
         type: Schema.Types.ObjectId,
@@ -15,11 +14,9 @@ const leaveRequestSchema = Schema({
     },
     startDate: {
         type: Date,
-        required: true
     },
     endDate: {
         type: Date,
-        required: true
     },
     isApproved: {
         type: String,

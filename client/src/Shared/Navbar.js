@@ -23,6 +23,9 @@ const Navbar = () => {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/Signup"><span className="font-weight-bolder">Signup</span></NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/leave"><span className="font-weight-bolder">Leave Apply</span></NavLink>
+                        </li>
                     </ul>
                 </div>
                 </div>

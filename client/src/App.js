@@ -7,7 +7,7 @@ import Login from './Body/Login';
 import Signup from './Body/Signup';
 import Navbar from './Shared/Navbar';
 import EmployeeActivation from './Body/EmployeeActivation';
-
+import LeaveApply from './Body/LeaveApply';
 function App() {
   return (
     <div className="App">
@@ -17,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/signup" element={<Signup/>}></Route>
         <Route path="/activation/:url" element={<EmployeeActivation />}></Route>
+        <Route path="/leave" element={<LeaveApply/>}></Route>
       </Routes>
     </div>
   );

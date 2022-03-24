@@ -15,7 +15,8 @@ const {
 
 //get all leavetype must be on top
 router.route("/all")
-    .get(Authorize, isMasterUser, getAllLeaveType);
+// Authorize, isMasterUser, 
+    .get(getAllLeaveType);
 
 router.route("/leavetypeadd")
     .post(Authorize, isMasterUser, nameValidation("name"), leaveAmount, createLeaveType);

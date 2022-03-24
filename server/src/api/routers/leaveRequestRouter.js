@@ -3,18 +3,24 @@ const { isMasterUser, Authorize } = require("../middleware/commonMiddlewares");
 const { 
 
 } = require("../controllers/departmentController");
-const { nameValidation } = require("../middleware/validation/commonValidator");
-const { createLeaveRequest } = require("../controllers/leaveRequestController");
+const {leaveCreateValidation } = require("../middleware/validation/commonValidator");
+const { createRequest, updateSingleReq, deleteSingleReq, getLeaveRequestForadmin, getsingleLeaveReq } = require("../controllers/leaveRequestController");
+const { LeaveReqMiddleware } = require("../middleware/leaveRequestMiddleware");
 
 //all dept must be on top
-router.route("/req")
-    .post(Authorize, createLeaveRequest);
+router.route("/create")
+    .post(Authorize, leaveCreateValidation, LeaveReqMiddleware, createRequest);
+    
+router.route("/allreq")
+    .get(Authorize, LeaveReqMiddleware, getLeaveRequestForadmin);
 
 
 router.route("/:id")
+    .get(Authorize, LeaveReqMiddleware, getsingleLeaveReq)
+    .put(Authorize, LeaveReqMiddleware, updateSingleReq)
+    .delete(Authorize, LeaveReqMiddleware, deleteSingleReq);
     
     
-router.route("/")
     
 
 

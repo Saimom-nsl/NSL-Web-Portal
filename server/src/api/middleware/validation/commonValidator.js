@@ -43,3 +43,7 @@ module.exports.leaveAmount = body("leaveAmount")
     .isInt().withMessage("Please Enter number")
     .custom((val)=> val > 0).withMessage("Must be greater than 0")
 
+module.exports.leaveCreateValidation = [
+    body("startDate").isDate().withMessage("Date Required"),
+    body("applyer").isString().withMessage("Required id")
+]

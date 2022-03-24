@@ -28,22 +28,33 @@ const LeaveApply = () => {
     const eventHandle = (e) => {
         name = e.target.name
         value = e.target.value
-        console.log(name, ":", value);
-        setLeave({ ...leave, [name]: value })
+        // console.log(name, ":", value);
+        if (name==='leaveType'){
+            const result = leaveTypes.filter((val)=>{
+                return val.name === value
+            })
+            console.log(result[0]._id);
+            setLeave({...leave,leaveType:result[0]._id})
+        }
+        else{
+            setLeave({ ...leave, [name]: value })
+        }
+        
     }
 
     //send all data to database
     const postData = async (e) => {
         e.preventDefault();
-        const { leaveType,details,startDate,enddate } = leave
-        const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/leavereq/req`, {
+        const { leaveType,details,startDate,endDate } = leave
+        console.log(leave);
+        const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/leavereq/create`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                leaveType,details,startDate,enddate,applyer
+                leaveType,details,startDate,endDate,applyer
             }),
             credentials: 'include'
         })

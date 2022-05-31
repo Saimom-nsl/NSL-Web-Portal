@@ -1,6 +1,6 @@
 const ProjectTask = require("../models/ProjectTask");
 const Permission = require("../models/ResourcePermission");
-const User = require("../models/User");
+const User = require("../models/userModel");
 
 module.exports.projectTaskPermission = async(req, res, next)=>{
     let user = await User.findOne({_id: req.user.id}).populate("role","name");

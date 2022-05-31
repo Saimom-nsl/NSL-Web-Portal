@@ -17,10 +17,9 @@ const userSchema = Schema({
         ref: "Role"
     },
     isActive: {
-        type: Boolean,
-        
+        type: Boolean,   
     },
-    isEmailVerified: {
+    isPasswordChanged: {
         type: Boolean,
         default: false,
     },
@@ -30,5 +29,6 @@ const userSchema = Schema({
 
 
 }, { timestamps: true });
+
 
 module.exports = model("User", userSchema);

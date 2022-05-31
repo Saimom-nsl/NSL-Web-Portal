@@ -6,9 +6,10 @@ const PORT = process.env.PORT || 3001 ;
 // const production_DB = process.env.NSL_DB; 
 //local db url
 // const local_DB = "mongodb://localhost:27017/nsl-system"; 
-const DB = process.env.ATLAS_DB || 'mongodb+srv://saimom_islam:F6ACwVvvM33R9C5T@cluster0.ku9fi.mongodb.net/One-Solution?retryWrites=true&w=majority';
+// const DB = 'mongodb+srv://saimom_islam:F6ACwVvvM33R9C5T@cluster0.ku9fi.mongodb.net/One-Solution?retryWrites=true&w=majority';
 // console.log(DB);
 //db connection
+const DB = process.env.DB;
 (async function dbConnection(url){
    await mongoose.connect(url);
 

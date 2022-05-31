@@ -1,61 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import jwt_dcode from "jwt-decode";
-import { ProjectContext } from '../Context/createContext';
-import Message from '../Hooks/Message';
+import React from 'react'
 
-const EmployeeActivation = (props) => {
-    const navigate = useNavigate();
-    const [message, setMessage] = useState(null)
-    const {setMsg,initialState} = useContext(ProjectContext);
-    const [errors, setErrors] = useState({})
-    const {url} = useParams();
-
-    //decoded token
-    const userDetails = jwt_dcode(url);
-    console.log(url);
-    //user destructure
-    const {email: urlEmail, exp, id} = userDetails;
-    
-    
-    const [user, setUser] = useState({
-        email: urlEmail, password: ""
-    });
+const ChangePassword = () => {
 
 
-    
-    const eventHandle = (e)=> {
-        setUser({password: e.target.value});
-    }
-
-    const {password} = user;
-    const postData = async(e)=> {
-        e.preventDefault();
-        const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/employee/activation/${url}?email=${urlEmail}&id=${id}`, {
-            method: "POST",
-            headers: {
-                // Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                password
-            }),
-            credentials: 'include'
-        });
-        console.log(res);
-        const data = await res.json();
-        
-        if (res.status === 200) {
-            //navigate to login
-            navigate("/login")
-        }
-        else {
-            // clearMessage()
-            
-            console.log(data);
-
-        }
-    }
   return (
     <div className="mt-5 container">
         <div className="login-form">
@@ -86,7 +33,7 @@ const EmployeeActivation = (props) => {
                                     </div>
 
                                     <div className="form-group for-btn">
-                                        <button type="submit" onClick={postData}  className="btn btn-primary btn-lg mt-3">Register</button>
+                                        <button type="submit"  className="btn btn-primary btn-lg mt-3">Register</button>
                                     </div>
                                 </div>
                             </form>
@@ -103,4 +50,4 @@ const EmployeeActivation = (props) => {
   )
 }
 
-export default EmployeeActivation
+export default ChangePassword

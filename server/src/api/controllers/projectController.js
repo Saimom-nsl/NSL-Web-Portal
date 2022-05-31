@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const { validationMessages, isErrorFounds } = require("../helpers/errorHelper");
 const Project = require("../models/Project");
-const User = require("../models/User");
+const User = require("../models/userModel");
 
 
 module.exports.getAllProjectsForAdmin = async(req, res)=> {

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const User = require("../models/userModel");
 const Permission = require("../models/ResourcePermission");
 const {validationResult} = require("express-validator");
 const {validationMessages} = require("../helpers/errorHelper");
@@ -20,6 +20,24 @@ module.exports.Authorize = async(req, res, next)=>{
     }
 }
 
+
+module.exports.isActive = async(req, res, next)=> {
+    if(req.user.isActive){
+
+    }else{
+        return res.status(400).json({'message': 'Please contact with admin for activate your id'})
+    }
+}
+
+module.exports.errorsFoundMiddleware = async(req, res, next)=> {
+    const errors = validationMessages(validationResult(req).mapped());
+    if(isErrorFounds(errors)) return res.status(400).json(errors);
+    else next();
+}
+
+module.exports.hashedPassword = async(pass)=> {
+    return await bcrypt.hash(pass, 10);
+}
 module.exports.isMasterUser = async(req, res, next)=> {
     let user = await User.findOne({_id: req.user.id}).populate("role", "name");
     if(!user) return res.status(400).json({"message": "Authorization Denied"});

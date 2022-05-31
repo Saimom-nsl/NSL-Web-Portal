@@ -1,13 +1,13 @@
 const router = require("express").Router();
-const { isMasterUser, Authorize, passwordVerification } = require("../middleware/commonMiddlewares");
+const { isMasterUser, Authorize, passwordVerification } = require("../../middleware/commonMiddlewares");
 const { 
     createProject, 
     getAllProject, 
     singleProjectDelete, 
     singleProjectInfoUpdate
-} = require("../controllers/projectController");
-const { nameValidation } = require("../middleware/validation/commonValidator");
-const { projectModulePermission } = require("../middleware/projectMiddlewares");
+} = require("../../controllers/projectController");
+const { nameValidation } = require("../../middleware/validation/commonValidator");
+const { projectModulePermission } = require("../../middleware/projectMiddlewares");
 
 //all projects must be on top
 router.route("/projects")

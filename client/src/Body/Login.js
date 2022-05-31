@@ -15,7 +15,7 @@ const Login = () => {
     const [user, setUser] = useState({
         email: "", password: ""
     })
-    console.log(initialState);
+    // console.log(initialState);
     let name, value;
     const eventHandle = (e) => {
         name = e.target.name
@@ -25,7 +25,7 @@ const Login = () => {
     const loginUser = async (e) => {
         e.preventDefault();
         const { email, password } = user
-        const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/user/signin`, {
+        const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/v1/users/signin`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -37,21 +37,25 @@ const Login = () => {
             credentials: 'include'
         })
         const data = await res.json()
-        // console.log(data);
         if (res.status !== 200) {
             // clearMessage()
             // setMessage(data.message)
-            console.log(data.message);
+            console.log(data);
+            setMessage(data.message)
 
         }
         else {
             // clearMessage()
-            userInfo(data)
-            setMsg("login successful")
-            setMessage(initialState.msg)
+            // userInfo(data)
+            setMsg("login successful");
+            setMessage(initialState.msg);
+            console.log(data.data);
             
             // Login()
             // navigate('/')
+            if(data.data.isFirstTimeLogin){
+                navigate("/changepassword")
+            }
 
         }
 

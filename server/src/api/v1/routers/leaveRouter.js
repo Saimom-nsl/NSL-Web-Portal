@@ -1,17 +1,17 @@
 const router = require("express").Router();
-const {nameValidation, leaveAmount} = require("../middleware/validation/commonValidator")
+const {nameValidation, leaveAmount} = require("../../middleware/validation/commonValidator")
 const {
     Authorize, 
     isMasterUser,
     passwordVerification
-} = require("../middleware/commonMiddlewares");
+} = require("../../middleware/commonMiddlewares");
 const { 
     getAllLeaveType, 
     getSingleLeave, 
     updateSingleLeave, 
     deleteSingleLeave, 
     createLeaveType
-} = require("../controllers/leaveController");
+} = require("../../controllers/leaveController");
 
 //get all leavetype must be on top
 router.route("/all")

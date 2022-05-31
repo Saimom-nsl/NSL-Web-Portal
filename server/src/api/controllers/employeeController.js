@@ -1,11 +1,11 @@
-const User = require("../models/User");
+const User = require("../models/userModel");
 const Employee = require("../models/Employee");
 const { isErrorFounds, validationMessages } = require("../helpers/errorHelper");
 const { signinToken, tokenDecoder } = require("../helpers/TokenCreation");
 const { validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+
 const { passwordHashing } = require("../helpers/commonHelper");
+const { createSingleEmployee, getSingleEmployee, updateSingleEmployee } = require("../services/employeeService");
 
 //employee invitaion
 module.exports.employeeInvitation = async(req, res)=> {
@@ -24,6 +24,18 @@ module.exports.employeeInvitation = async(req, res)=> {
     res.status(200).json({"message": "Your request has been registered",  "token":reactUrl,})
 }
 
+//new api
+module.exports.createSingleEmployee = async(req, res)=> {
+    try{
+        const employee = await createSingleEmployee(req.body);
+        return res.status(201).json(employee);
+        
+
+    }catch(e){
+        // console.log(e);
+        return res.status(500).json(e.message || {"message": "something went wrong in employee creation"})
+    }
+}
 //employee activation
 module.exports.employeeActivation = async (req, res)=> {
     
@@ -51,18 +63,29 @@ module.exports.employeeActivation = async (req, res)=> {
 
 //get employ by id
 module.exports.getSingleEmployee = async(req, res)=> {
-    const {id} = req.params;
-    const user = await Employee.findOne({_id: id});
-    if(!user) return res.status(400).json({"message": "Employee not found"});
-    return res.status(200).json({user});
+    try{
+        const result = await getSingleEmployee(req.params.id);
+        return res.status(200).json(result)
+
+    }catch(e){
+        return res.status(500).json(e.message || {"message": "problem in fetching single employee module"})
+    }
 
 }
 //update employee information
 module.exports.updateSingleEmployee = async(req, res)=> {
-    const {bloodGroup, sex, address, ...others} = req.body;
-    const id = req.params.id;
-    await Employee.findOneAndUpdate({_id:id}, {$set: {bloodGroup, sex, address, ...others}});
-    return res.status(200).json({"message": "Updated Successfully"});
+    
+    try{
+        const data = {...req.body};
+        const updatedEmployee = await updateSingleEmployee(req.params.id, data);
+        return res.status(200).json({"message": 'Updated successfully', updatedEmployee})
+    }catch(e){
+        return res.status(500).json(e.message || {"message": "problem in update single employee module"})
+    }
+    // const {bloodGroup, sex, address, ...others} = req.body;
+    // const id = req.params.id;
+    // await Employee.findOneAndUpdate({_id:id}, {$set: {bloodGroup, sex, address, ...others}});
+    // return res.status(200).json({"message": "Updated Successfully"});
 }
 
 module.exports.deleteSingleEmployee = async(req, res)=> {

@@ -3,9 +3,9 @@ const { createResourcePermission,
         getAllPermission, getSinglePermission, 
         updateSingleResourcePermission, 
         deleteSinglePermission 
-} = require("../controllers/rwpmController");
-const {Authorize, isMasterUser, passwordVerification} = require("../middleware/commonMiddlewares");
-const { nameValidation } = require("../middleware/validation/commonValidator");
+} = require("../../controllers/rwpmController");
+const {Authorize, isMasterUser, passwordVerification} = require("../../middleware/commonMiddlewares");
+const { nameValidation } = require("../../middleware/validation/commonValidator");
 
 
 router.route("/allpermission")

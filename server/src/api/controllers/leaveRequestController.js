@@ -1,5 +1,5 @@
 const Project = require("../models/Project");
-const User = require("../models/User");
+const User = require("../models/userModel");
 const { isErrorFounds, validationMessages } = require("../helpers/errorHelper");
 const { validationResult } = require("express-validator");
 const LeaveRequest = require("../models/LeaveRequest");

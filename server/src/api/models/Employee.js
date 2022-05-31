@@ -15,9 +15,15 @@ const employeeSchema = new Schema({
         type: String,
         set: (v)=> capitalizeFirstLetter(v)
     },
-    email: String,
-    phoneNumber: {
-        type: [String],
+    nslId: {
+        type: String,
+        unique: true
+    },
+    personalPhoneNumber: {
+        type: String,
+    },
+    officePhoneNumber: {
+        type: String,
     },
     employmentDate: {
         type: String,
@@ -25,17 +31,21 @@ const employeeSchema = new Schema({
     bloodGroup: {
         type: String,
     },
-    sex: {
+    nid: {
+        type: String,
+    },
+    gender: {
         type: String,
         enum: ["male", "female", "others"],
     },
-    address: {
+    presentAddress: {
         type: String,
     },
-    department: {
-        type: [Schema.Types.ObjectId],
-        ref: "Department",
-    }
+    permanentAddress: {
+       type: String, 
+    },
+
+    // skills: [{}]
 
 }, {timestamps: true});
 

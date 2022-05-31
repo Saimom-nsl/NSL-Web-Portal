@@ -47,3 +47,11 @@ module.exports.leaveCreateValidation = [
     body("startDate").isDate().withMessage("Date Required"),
     body("applyer").isString().withMessage("Required id")
 ]
+
+
+//skill
+module.exports.skillCreationValidation = [
+    body("skillName").notEmpty().withMessage("Required"),
+    body("skillLevel").notEmpty().withMessage("Required"),
+    body("empId").notEmpty().withMessage("Required"),
+]

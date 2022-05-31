@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { isMasterUser, Authorize, passwordVerification } = require("../middleware/commonMiddlewares");
+const { isMasterUser, Authorize, passwordVerification } = require("../../middleware/commonMiddlewares");
 const { 
     departmentAdd,
     getAllDepts,

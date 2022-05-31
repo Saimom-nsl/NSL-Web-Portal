@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/userModel");
 const Permission = require("../models/ResourcePermission");
 
 module.exports.projectModulePermission = async(req, res, next)=> {

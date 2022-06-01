@@ -34,6 +34,12 @@ module.exports.SignIn = async(loginCredentials)=> {
     }
 }
 
+module.exports.getUserInfo = async(data)=> {
+    const user = await User.findOne({email: data.email}).lean();
+    const {password, __v, createdAt, updatedAt, ...rest} = user;
+    return rest;
+}
+
 module.exports.changePassword = async(email,password)=> {
     const user = await User.findOne({email});
     if(!user) throw new Error("User not found");

@@ -17,7 +17,8 @@ const userSchema = Schema({
         ref: "Role"
     },
     isActive: {
-        type: Boolean,   
+        type: Boolean,
+        default: true,  
     },
     isPasswordChanged: {
         type: Boolean,

@@ -6,7 +6,7 @@ const Role = require("../models/Role");
 const { validationMessages, isErrorFounds } = require("../helpers/errorHelper");//validation msg formatter
 const { signinToken, tokenDecoder } = require("../helpers/TokenCreation");
 const {passwordHashing} = require("../helpers/commonHelper");
-const {loginHandler, changePassword} = require("../services/userService")
+const {loginHandler, changePassword, getUserInfo} = require("../services/userService")
 
 // //one time invite
 // module.exports.masterUserInvitation = async(req, res)=> {
@@ -100,6 +100,15 @@ module.exports.u_sign = async(req, res)=> {
     }
 }
 
+module.exports.getUserInfo = async(req, res)=> {
+    try{
+        const user = await getUserInfo(req.user);
+        return res.status(200).json({'data': user});
+    }catch(e){
+        return res.status(500).json({"message": "User data not found"})
+    }
+
+}
 module.exports.u_passwordChange = async(req, res)=> {
 
     // const errors = validationMessages(validationResult(req).mapped());

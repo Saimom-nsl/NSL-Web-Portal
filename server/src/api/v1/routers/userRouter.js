@@ -9,11 +9,13 @@ const {
     u_sign,
     changePassword,
     u_passwordChange,
+    getUserInfo,
     } = require("../../controllers/userController");
 const { Authorize, isMasterUser, errorsFoundMiddleware } = require("../../middleware/commonMiddlewares");
 
 router.route("/signin")
     .post(verify_Sign_In_Module,u_sign);
+router.route("/userinfo").get(Authorize,getUserInfo);
 
 router.route("/changepassword")
     .put(Authorize,passwordValidation,errorsFoundMiddleware,u_passwordChange);

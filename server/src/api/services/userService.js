@@ -1,4 +1,4 @@
-const {SignIn, changePassword} = require("../database/Users");
+const {SignIn, changePassword, getUserInfo} = require("../database/Users");
 module.exports.loginHandler = async(data)=> {
     try{
         const user = await SignIn(data);
@@ -7,6 +7,10 @@ module.exports.loginHandler = async(data)=> {
         throw e
     }
     
+}
+
+module.exports.getUserInfo = async(data)=> {
+    return await getUserInfo(data)
 }
 
 module.exports.changePassword = async(email, password)=> {

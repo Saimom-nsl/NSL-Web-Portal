@@ -6,7 +6,7 @@ import { reducer } from '../Reducer/reducer'
 export const ProjectContext = createContext()
 
 let initialState = {
-    user: [],
+    user: {},
     token:'',
     msg: null,
     toggle: false
@@ -31,9 +31,15 @@ const Createcontext = () => {
       payload:user
     })
   }
+  const userlogout = () => {
+    return dispatch({
+      type: "USER_LOGOUT",
+      payload: {}
+    })
+  }
 
   return (
-    <ProjectContext.Provider value={{ ...state, setMsg,initialState,userInfo}}>
+    <ProjectContext.Provider value={{ ...state, setMsg,initialState,userInfo, userlogout}}>
         <App />
     </ProjectContext.Provider>
   )

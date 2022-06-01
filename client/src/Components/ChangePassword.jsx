@@ -10,7 +10,7 @@ const ChangePassword = () => {
                     <div className="row">
                         <div className="col-md-6">
                             <h1 className="text-center">Upadate Password</h1>
-                            <form method="POST">
+                            {/* <form method="POST">
                                 <div className="form-group mt-5">
                                     <div className="input-group mt-3">
                                         <div className="input-group-prepend">
@@ -36,7 +36,7 @@ const ChangePassword = () => {
                                         <button type="submit"  className="btn btn-primary btn-lg mt-3">Register</button>
                                     </div>
                                 </div>
-                            </form>
+                            </form> */}
 
                         </div>
                         

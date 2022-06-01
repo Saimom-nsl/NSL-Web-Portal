@@ -4,9 +4,10 @@ export const reducer = (state,action) => {
             state.msg = action.data
             return { ...state, msg: state.msg }
         case 'USER_INFO':
-            state.user.push (action.payload)
+            state.user = action.payload
             console.log(state.user);
             return {...state,user:state.user}
+        
         default:
             return {...state}
     }

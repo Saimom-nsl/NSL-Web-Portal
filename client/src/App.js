@@ -8,6 +8,8 @@ import Signup from './Body/Signup';
 import Navbar from './Shared/Navbar';
 import EmployeeActivation from './Body/EmployeeActivation';
 import ChangePassword from './Components/ChangePassword';
+import Dashboard from './pages/Dashboard';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
@@ -16,9 +18,12 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
-        <Route path="/signup" element={<Signup/>}></Route>
-        <Route path='/changepassword' element={<ChangePassword />} />
-        <Route path="/activation/:url" element={<EmployeeActivation />}></Route>
+        {/* login-user-dashboard-route-link */}
+        <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>}></Route>
+        
+        {/* <Route path="/signup" element={<Signup/>}></Route> */}
+        {/* <Route path='/changepassword' element={<ChangePassword />} /> */}
+        {/* <Route path="/activation/:url" element={<EmployeeActivation />}></Route> */}
       </Routes>
     </div>
   );

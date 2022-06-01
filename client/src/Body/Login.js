@@ -1,11 +1,14 @@
 import React, { useState, useContext } from 'react'
-import { NavLink,useNavigate } from 'react-router-dom'
+import { Navigate, NavLink,useNavigate } from 'react-router-dom'
+import { loginHandler } from '../API/user'
 import { ProjectContext } from '../Context/createContext'
+import useAuth from '../Hooks/Auth'
 import Message from '../Hooks/Message'
 // import useAlert from '../Hooks/Alert'
 // import { ProjectContext } from '../Context/createContext'
 import login from '../images/login.png'
 // import Message from '../Alert/Message'
+
 
 const Login = () => {
     // const { Login, msg, clearMessage } = useContext(ProjectContext);
@@ -16,50 +19,73 @@ const Login = () => {
         email: "", password: ""
     })
     // console.log(initialState);
+    const { email, password } = user;
+
     let name, value;
     const eventHandle = (e) => {
         name = e.target.name
         value = e.target.value
         setUser({ ...user, [name]: value })
     }
-    const loginUser = async (e) => {
-        e.preventDefault();
-        const { email, password } = user
-        const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/v1/users/signin`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email, password
-            }),
-            credentials: 'include'
-        })
-        const data = await res.json()
-        if (res.status !== 200) {
-            // clearMessage()
-            // setMessage(data.message)
-            console.log(data);
-            setMessage(data.message)
+    // const loginUser = async (e) => {
+    //     e.preventDefault();
+    //     const { email, password } = user;
+        // const res = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/v1/users/signin`, {
+        //     method: "POST",
+        //     headers: {
+        //         Accept: "application/json",
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         email, password
+        //     }),
+        //     credentials: 'include'
+        // })
+        // const data = await res.json()
+        // if (res.status !== 200) {
+        //     // clearMessage()
+        //     // setMessage(data.message)
+        //     console.log(data);
+        //     setMessage(data.message)
 
-        }
-        else {
-            // clearMessage()
-            // userInfo(data)
-            setMsg("login successful");
-            setMessage(initialState.msg);
-            console.log(data.data);
+        // }
+        // else {
+        //     // clearMessage()
+        //     // userInfo(data)
+        //     setMsg("login successful");
+        //     setMessage(initialState.msg);
+        //     console.log(data.data);
             
-            // Login()
-            // navigate('/')
-            if(data.data.isFirstTimeLogin){
-                navigate("/changepassword")
-            }
+        //     // Login()
+        //     // navigate('/')
+        //     if(data.data.isFirstTimeLogin){
+        //         navigate("/changepassword")
+        //     }
 
+        // }
+
+
+        //changes by shuvo
+
+
+        const handleSubmit = (e)=> {
+            e.preventDefault();
+            // console.log(email, password);
+            const logindata = {email, password}
+            console.log(logindata);
+            loginHandler(logindata).then(data => {
+                const response = data.data.data;                
+                userInfo(response);
+                const slugname = response.email.split("@")[0];
+                localStorage.setItem("token", response.token);
+                navigate(`/dashboard`)
+
+            }).catch(e=> {
+                console.log(e);
+            })
         }
 
-    }
+        
 
     return (
         <div className="mt-5 container">
@@ -71,7 +97,7 @@ const Login = () => {
                     <div className="row">
                         <div className="col-md-6">
                             <h1 className="text-center">Sign In</h1>
-                            <form method="POST">
+                            <form onSubmit={handleSubmit}>
                                 <div className="form-group mt-5">
                                     <div className="input-group mt-3">
                                         <div className="input-group-prepend">
@@ -79,7 +105,7 @@ const Login = () => {
                                                 <span className="fa fa-paper-plane"></span>
                                             </span>
                                         </div>
-                                        <input type="email" className="form-control" name="email" value={user.email} onChange={eventHandle} placeholder="Email Address" required="required"  />
+                                        <input type="email" className="form-control" name="email" value={email} onChange={eventHandle} placeholder="Email Address" required="required"  />
                                     </div>
 
 
@@ -89,11 +115,12 @@ const Login = () => {
                                                 <span className="fa fa-lock"></span>
                                             </span>
                                         </div>
-                                        <input type="password" className="form-control" name="password" value={user.password} onChange={eventHandle} placeholder="password" required="required" autoComplete="off"/>
+                                        <input type="password" className="form-control" name="password" value={password} onChange={eventHandle} placeholder="password" required="required" autoComplete="off"/>
                                     </div>
 
                                     <div className="form-group for-btn">
-                                        <button type="submit" onClick={loginUser} className="btn btn-primary btn-lg mt-3">Sign In</button>
+                                    {/* onClick={loginUser} */}
+                                        <button type="submit" className="btn btn-primary btn-lg mt-3">Sign In</button>
                                     </div>
                                 </div>
                             </form>
@@ -117,4 +144,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;

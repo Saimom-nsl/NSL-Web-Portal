@@ -35,7 +35,7 @@ module.exports.SignIn = async(loginCredentials)=> {
 }
 
 module.exports.getUserInfo = async(data)=> {
-    const user = await User.findOne({email: data.email}).lean();
+    const user = await User.findOne({email: data.email}).populate('role').lean();
     const {password, __v, createdAt, updatedAt, ...rest} = user;
     return rest;
 }

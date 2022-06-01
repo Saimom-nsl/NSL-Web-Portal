@@ -45,7 +45,10 @@ const employeeSchema = new Schema({
        type: String, 
     },
 
-    // skills: [{}]
+    skills: {
+        type: [Schema.Types.ObjectId],
+        ref: "Skills"
+    }
 
 }, {timestamps: true});
 

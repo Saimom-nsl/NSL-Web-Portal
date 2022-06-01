@@ -1,21 +1,34 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const { hashedPassword } = require("../middleware/commonMiddlewares");
+const jwt = require("jsonwebtoken");
 
 module.exports.SignIn = async(loginCredentials)=> {
     const {email, password:bodyPassword} = loginCredentials;
     const user = await User.findOne({email}).lean().populate("role");
     if(!user) throw Error("Wrong Credentials");
-    if(user.isPasswordChanged === 'true'){
+    // const token = await jwt.sign(user, process.env.JWT_SECRET_KEY, {expiresIn: "1d"});
+    
+    if(user.isPasswordChanged === true){
         const verifyPassword = await bcrypt.compare(bodyPassword, user.password);
         if (!verifyPassword) throw new Error("User or password Incorect");
-        const userInfo = await User.updateOne({email: user.email}, {$set: {lastLogin: new Date()}}, {new: true});
-        const {password, ...rest} = userInfo;
-        return rest;
+        const {password, token:restoken, lastLogin, __v,createdAt, updatedAt, ...rest} = user;
+        const token = await jwt.sign(rest, process.env.JWT_SECRET_KEY, {expiresIn: "1d"});
+        const userInfo = await User.findOneAndUpdate({email: user.email}, {$set: {
+            lastLogin: new Date(), token: token
+        }}, {new: true}).populate("role").lean();
+        console.log("sign in");
+        return {...rest, token};
     }else{
         if(bodyPassword === user.password){
-            const {password, ...rest} = user;
-            return rest;
+            const {password, token:restoken, lastLogin, __v,createdAt, updatedAt, ...rest} = user;
+            const token = await jwt.sign(rest, process.env.JWT_SECRET_KEY, {expiresIn: "1d"});
+            const userInfo = await User.findOneAndUpdate({email: user.email}, {$set: {
+            lastLogin: new Date(), token: token
+        }}, {new: true}).populate("role").lean();
+        console.log("sign in");
+            // const {password, ...rest} = user;
+            return {...rest, token};
         }
         throw new Error("User or password Incorect");
     }
@@ -24,6 +37,9 @@ module.exports.SignIn = async(loginCredentials)=> {
 module.exports.changePassword = async(email,password)=> {
     const user = await User.findOne({email});
     if(!user) throw new Error("User not found");
-    await User.findOneAndUpdate({email}, {$set: {password: await hashedPassword(password), isPasswordChanged: true}});
+    await User.findOneAndUpdate({email}, {$set: {password: await hashedPassword(password),
+        isPasswordChanged: true,
+        token: ""
+    }});
     return "Password Change successfully";
 }

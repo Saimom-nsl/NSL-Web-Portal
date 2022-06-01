@@ -25,6 +25,9 @@ const userSchema = Schema({
     },
     lastLogin: {
         type: Date,
+    },
+    token: {
+        type: String
     }
 
 

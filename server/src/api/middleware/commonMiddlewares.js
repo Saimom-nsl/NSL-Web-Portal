@@ -10,8 +10,13 @@ module.exports.Authorize = async(req, res, next)=>{
     try {
         let token = req.header("Authorization");
         token = token.split(" ")[1].trim();
+        // const user = await User.findOne({email: req.body.email}).lean();
+        // console.log(user.token);
+        // if(user.token !== token) return res.status(401).json({"message": "Authorization denied"})
         const decode = await jwt.verify(token, process.env.JWT_SECRET_KEY);
         req.user = decode;
+        const user = await User.findOne({email: req.user.email}).lean();
+        if(user.token !== token) return res.status(401).json({"message": "Authorization denied"})
         next();
     }
     catch(e){

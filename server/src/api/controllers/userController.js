@@ -93,8 +93,8 @@ module.exports.u_sign = async(req, res)=> {
     if (isErrorFounds(errors)) return res.status(400).json(errors);
     try{
         const {email, password} = req.body
-        const {user, token} = await loginHandler({email, password});
-        return res.status(200).json({"data":user , "token": token});
+        const user = await loginHandler({email, password});
+        return res.status(200).json({"data":user});
     }catch(err){
         return res.status(500).json({"message":err.message});
     }
@@ -114,7 +114,9 @@ module.exports.u_passwordChange = async(req, res)=> {
             }
             //change for own password
             const email = req.user.email;
-            await changePassword(email, password)
+            await changePassword(email, password);
+            return res.status(200).json({"message": "Password change successfully"})
+
             
         }else{
             //normal user password change

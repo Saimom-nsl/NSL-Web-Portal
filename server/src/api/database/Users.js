@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const { hashedPassword } = require("../middleware/commonMiddlewares");
 const jwt = require("jsonwebtoken");
+const Employee = require("../models/Employee")
 
 module.exports.SignIn = async(loginCredentials)=> {
     const {email, password:bodyPassword} = loginCredentials;
@@ -48,4 +49,15 @@ module.exports.changePassword = async(email,password)=> {
         token: ""
     }});
     return "Password Change successfully";
+}
+
+module.exports.getAllUser = async(data)=> {
+    let order = data.order? data.order: 1 ;
+    let sortby = data.sortby? data.sortby: '_id';
+    let limit = data.limit ? parseInt(data.limit): 10;
+    const users = await User.find()
+    .select({password: 0, token: 0, isPasswordChanged: 0, updatedAt: 0, createdAt: 0, __v:0})
+    .limit(limit)
+    .sort({[sortby]: order})
+    return users;
 }

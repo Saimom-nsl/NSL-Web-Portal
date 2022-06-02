@@ -5,7 +5,7 @@ const { signinToken, tokenDecoder } = require("../helpers/TokenCreation");
 const { validationResult } = require("express-validator");
 
 const { passwordHashing } = require("../helpers/commonHelper");
-const { createSingleEmployee, getSingleEmployee, updateSingleEmployee } = require("../services/employeeService");
+const { createSingleEmployee, getSingleEmployee, updateSingleEmployee, getAllEmployee } = require("../services/employeeService");
 
 //employee invitaion
 module.exports.employeeInvitation = async(req, res)=> {
@@ -98,7 +98,15 @@ module.exports.deleteSingleEmployee = async(req, res)=> {
 
 //get all employee
 module.exports.getAllEmployee = async(req, res)=>{
-    const users = await Employee.find();
-    if(!users) return res.status(400).json({"message": "Not found"});
+    try{
+        const employees = await getAllEmployee();
+        // const {firstName, lastName, middleName} = employees;
+        if(req.user.role.name === 'superadmin'){
+            return res.status(200).json(employees);
+        }
+    }catch(e){
+        return res.status(500).json(e.message || {"message": "Something went wrong in fetching all employee"})
+    }
+    const users = await getAllEmployee()
     return res.status(200).json({"users": users});
 }

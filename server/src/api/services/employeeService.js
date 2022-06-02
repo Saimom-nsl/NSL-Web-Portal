@@ -1,4 +1,4 @@
-const { createdSingleEmployee, getSingleEmployee, updateSingleEmployee } = require("../database/Employee");
+const { createdSingleEmployee, getSingleEmployee, updateSingleEmployee, getAllEmployee } = require("../database/Employee");
 const Employee = require("../models/Employee");
 module.exports.createSingleEmployee = async(data)=> {
 
@@ -14,4 +14,10 @@ module.exports.getSingleEmployee = async(id)=> {
 module.exports.updateSingleEmployee = async(id, data)=> {
     const result = await updateSingleEmployee(id, data);
     return result;
+}
+
+module.exports.getAllEmployee = async()=> {
+    const employees = await getAllEmployee();
+    // if(!employees.length)
+    return employees;
 }

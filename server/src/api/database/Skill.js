@@ -9,3 +9,9 @@ module.exports.createSkillForAUser = async(data)=> {
     if(result) return result;
     else throw Error("Skill not created")
 }
+
+module.exports.deleteSkillForAUser = async(data)=> {
+    const result = await Skills.findOneAndDelete({empId: data.empId, _id: data.skillId})
+    if(!result) throw new Error("Not found skill")
+    return "Deleted successfully"
+}

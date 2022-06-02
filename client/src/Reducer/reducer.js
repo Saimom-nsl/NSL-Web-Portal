@@ -7,7 +7,10 @@ export const reducer = (state,action) => {
             state.user = action.payload
             console.log(state.user);
             return {...state,user:state.user}
-        
+
+        case 'USER_LOGOUT':
+            state.user = null;
+            return {...state}
         default:
             return {...state}
     }

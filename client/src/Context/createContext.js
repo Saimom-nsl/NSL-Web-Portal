@@ -1,6 +1,6 @@
 import React, {useReducer, createContext ,useEffect} from 'react'
 import App from '../App'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 import { reducer } from '../Reducer/reducer'
 
 export const ProjectContext = createContext()
@@ -25,7 +25,8 @@ const Createcontext = () => {
           data: message
       })
   }
-  const userInfo = (user)=>{
+
+  const userInfo = user =>{
     return dispatch({
       type:'USER_INFO',
       payload:user
@@ -39,7 +40,7 @@ const Createcontext = () => {
   }
 
   return (
-    <ProjectContext.Provider value={{ ...state, setMsg,initialState,userInfo, userlogout}}>
+    <ProjectContext.Provider value={{ ...state, setMsg,userInfo, userlogout}}>
         <App />
     </ProjectContext.Provider>
   )

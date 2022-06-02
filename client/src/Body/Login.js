@@ -12,7 +12,7 @@ import login from '../images/login.png'
 
 const Login = () => {
     // const { Login, msg, clearMessage } = useContext(ProjectContext);
-    const {setMsg,initialState,userInfo} =useContext(ProjectContext)
+    const {userInfo} =useContext(ProjectContext)
     const [message,setMessage] = useState('')
     const navigate = useNavigate();
     const [user, setUser] = useState({
@@ -76,7 +76,7 @@ const Login = () => {
             loginHandler(logindata).then(data => {
                 const response = data.data.data;                
                 userInfo(response);
-                const slugname = response.email.split("@")[0];
+                // const slugname = response.email.split("@")[0];
                 localStorage.setItem("token", response.token);
                 navigate(`/dashboard`)
 

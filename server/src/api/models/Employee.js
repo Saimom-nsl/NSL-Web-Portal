@@ -19,6 +19,9 @@ const employeeSchema = new Schema({
         type: String,
         unique: true
     },
+    joiningDate: {
+        type: Date,
+    },
     personalPhoneNumber: {
         type: String,
     },

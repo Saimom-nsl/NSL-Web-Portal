@@ -101,12 +101,13 @@ module.exports.getAllEmployee = async(req, res)=>{
     try{
         const employees = await getAllEmployee();
         // const {firstName, lastName, middleName} = employees;
-        if(req.user.role.name === 'superadmin'){
-            return res.status(200).json(employees);
-        }
+        // if(req.user.role.name === 'superadmin'){
+        //     return res.status(200).json(employees);
+        // }
+        return res.status(200).json({"data": employees})
     }catch(e){
         return res.status(500).json(e.message || {"message": "Something went wrong in fetching all employee"})
     }
-    const users = await getAllEmployee()
-    return res.status(200).json({"users": users});
+    // const users = await getAllEmployee()
+    // return res.status(200).json({"users": users});
 }

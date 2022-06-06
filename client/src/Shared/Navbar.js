@@ -6,6 +6,7 @@ import useAuth from '../Hooks/Auth';
 const Navbar = () => {
     const auth = useAuth();
     const navigate = useNavigate();
+    
     const {userInfo, userlogout} = useContext(ProjectContext);
     const logout = ()=> {
         const token = localStorage.getItem("token");

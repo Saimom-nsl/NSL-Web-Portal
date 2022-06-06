@@ -8,22 +8,34 @@ export const ProjectContext = createContext()
 let initialState = {
     user: {},
     token:'',
-    msg: null,
-    toggle: false
+    // msg: null,
+    // toggle: false
 }
 
 
 
 const Createcontext = () => {
-  // useEffect(()=>{
-  //   initialState.token = Cookies.get('jwtoken')
-  // },[])
+  
+  useEffect(()=>{
+    // initialState.token = localStorage.getItem("token");
+
+    getToken(localStorage.getItem("token"))
+    console.log(initialState.token);
+  },[]);
+  
   const [state, dispatch] = useReducer(reducer, initialState);
   const setMsg = (message) => {
       return dispatch({
           type: 'GET_MESSAGE',
           data: message
       })
+  }
+
+  const getToken = (token)=> {
+    return dispatch({
+      type: 'GET_TOKEN',
+      payload: token
+    })
   }
 
   const userInfo = user =>{
@@ -39,8 +51,15 @@ const Createcontext = () => {
     })
   }
 
+  // const setToggle = ()=> {
+  //   return dispatch({
+  //     type: 'TOGGLE',
+  //     payload: toggle
+  //   })
+  // }
+
   return (
-    <ProjectContext.Provider value={{ ...state, setMsg,userInfo, userlogout}}>
+    <ProjectContext.Provider value={{ ...state, setMsg,userInfo, userlogout, getToken}}>
         <App />
     </ProjectContext.Provider>
   )

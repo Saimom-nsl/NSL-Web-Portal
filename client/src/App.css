@@ -1,5 +1,15 @@
+:root{
+  --rootColor: #0E1936;
+}
+
 body{
   background-color: rgb(206, 198, 198) !important;
+}
+
+/*body content*/
+.body-content{
+  width: calc(100%-225px);
+  margin-left: 225px;
 }
 /* Navbar Design */
 .color{

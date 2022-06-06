@@ -42,16 +42,18 @@ module.exports.createSkillsforSingleUser = async(skills)=> {
 
 }
 module.exports.getAllEmployee = async(query)=> {
-    let order = query.order === "desc"? -1:1;
-    let sortBy = query.sortBy ? query.sortBy:'_id';
-    let limit = query.limit ? parseInt(query.limit):10;
-    let skip = parseInt(skip);
-    let filters = req.body.filters;
-    let args={};
-    const employees = await Employee.find()
-    .select({updatedAt: 0, createdAt: 0, __v:0})
-    .limit(limit)
-    .sort({[sortby]: order})
-    .skip(skip)
+    console.log("hello");
+    // let order = query.order === "desc"? -1:1;
+    // let sortBy = query.sortBy ? query.sortBy:'_id';
+    // let limit = query.limit ? parseInt(query.limit):10;
+    // let skip = parseInt(skip);
+    // let filters = req.body.filters;
+    // let args={};
+    const employees = await Employee.find();
+    // console.log(employees);
+    // .select({updatedAt: 0, createdAt: 0, __v:0})
+    // .limit(limit)
+    // .sort({[sortby]: order})
+    // .skip(skip)
     return employees;
 }

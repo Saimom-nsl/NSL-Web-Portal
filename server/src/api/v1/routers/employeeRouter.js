@@ -20,10 +20,10 @@ const { employeeCreationValidation } = require("../../middleware/validation/empl
 
 
 router.route("/").post(employeeCreationValidation, errorsFoundMiddleware, createSingleEmployee)
-router.route("/all").get( getAllEmployee)
+router.route("/all").get(getAllEmployee)
 
 router.route("/:id")
-    .get(getSingleEmployee)
+    .get(Authorize,getSingleEmployee)
     .put(Authorize,updateSingleEmployee)
     .delete(Authorize, employeeModulePermission, passwordVerification, deleteSingleEmployee)
 

@@ -13,7 +13,7 @@ module.exports.Authorize = async(req, res, next)=>{
         const decode = await jwt.verify(token, process.env.JWT_SECRET_KEY);
         req.user = decode;
         const user = await User.findOne({email: req.user.email}).lean();
-        if(user.token !== token) return res.status(401).json({"message": "Authorization denied"})
+        if(user.token !== token) return res.status(401).json({"message": "Authorization denied", "stateCode": 401});
         next();
     }
     catch(e){

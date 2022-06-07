@@ -77,7 +77,7 @@ const Login = () => {
                 const response = data.data.data;                
                 userInfo(response);
                 // const slugname = response.email.split("@")[0];
-                localStorage.setItem("token", response.token);
+                localStorage.setItem("token", JSON.stringify(response.token));
                 navigate(`/dashboard`)
 
             }).catch(e=> {

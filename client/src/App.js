@@ -12,6 +12,9 @@ import Dashboard from './pages/Dashboard';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import DashNav from './Shared/DashNav';
 import EmployeeList from './Components/EmployeeComponents/EmployeeList';
+import EmployeeProfile from './Components/EmployeeProfile/EmployeeProfile';
+import Leave from './pages/Leave';
+import Projects from './pages/Projects';
 
 function App() {
   return (
@@ -26,7 +29,11 @@ function App() {
         {/* login-user-dashboard-route-link */}
         <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>}></Route>
         <Route path='/employees' element={<PrivateRoute><EmployeeList /></PrivateRoute>}></Route>
-        
+        <Route path='/leave' element={<PrivateRoute>< Leave/></PrivateRoute>}></Route>
+        <Route path='/projects' element={<PrivateRoute>< Projects/></PrivateRoute>}></Route>
+
+        <Route path='/employees/:pid' element={<PrivateRoute><EmployeeProfile /></PrivateRoute>}></Route>
+
         {/* <Route path="/signup" element={<Signup/>}></Route> */}
         {/* <Route path='/changepassword' element={<ChangePassword />} /> */}
         {/* <Route path="/activation/:url" element={<EmployeeActivation />}></Route> */}

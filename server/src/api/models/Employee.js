@@ -28,9 +28,6 @@ const employeeSchema = new Schema({
     officePhoneNumber: {
         type: String,
     },
-    employmentDate: {
-        type: String,
-    },
     bloodGroup: {
         type: String,
     },

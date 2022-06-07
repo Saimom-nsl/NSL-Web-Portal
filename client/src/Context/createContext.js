@@ -2,7 +2,6 @@ import React, {useReducer, createContext ,useEffect} from 'react'
 import App from '../App'
 // import Cookies from 'js-cookie'
 import { reducer } from '../Reducer/reducer'
-
 export const ProjectContext = createContext()
 
 let initialState = {
@@ -17,10 +16,11 @@ let initialState = {
 const Createcontext = () => {
   
   useEffect(()=>{
-    // initialState.token = localStorage.getItem("token");
+    // let token = localStorage.getItem("token");
 
-    getToken(localStorage.getItem("token"))
-    console.log(initialState.token);
+    if(localStorage.getItem("token")){
+      getToken(JSON.parse(localStorage.getItem("token")))
+    }
   },[]);
   
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -31,10 +31,10 @@ const Createcontext = () => {
       })
   }
 
-  const getToken = (token)=> {
+  const getToken = tok => {
     return dispatch({
       type: 'GET_TOKEN',
-      payload: token
+      payload: tok
     })
   }
 

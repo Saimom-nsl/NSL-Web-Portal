@@ -10,3 +10,11 @@ export const getAllEmployees = (token)=> {
         }
 })
 }
+
+
+export const getSingleEmployee = (empId, token)=> axios.get(`${API}/employees/${empId}`,{
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    }
+})

@@ -8,17 +8,22 @@ import jwtDecode from "jwt-decode";
 
 const DashNav = () => {
   const [toggle, setToggle] = useState(false);
-  // const [user, setUser] = useState({});
+
+  const [u, setU] = useState({});
   const body = document.querySelector("body");
   const auth = useAuth();
   const navigate = useNavigate();
 
-  const { userInfo, userlogout,user, token } = useContext(ProjectContext);
-  console.log(token);
-  // const user = jwtDecode(token);
-  // useEffect(()=> {
-  //   setUser(userfromtoken)
-  // },[userfromtoken])
+  const { userInfo, userlogout,user, token} = useContext(ProjectContext);
+
+  //decode token data
+  useEffect(()=> {
+    if(token){
+      setU(jwtDecode(token))
+    }
+  },[token])
+
+  //logut function
   const logout = () => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -27,6 +32,8 @@ const DashNav = () => {
       navigate("/");
     }
   };
+
+  //nav toggoler
   const handleToggle = () => {
     body.classList.toggle("active");
     setToggle(!toggle);
@@ -56,8 +63,8 @@ const DashNav = () => {
         <div className="sidebar">
           <div className="profile">
             <img src={manimg} alt="profile_picture" />
-            <h3>{user?.email}</h3>
-            <p>{user?.role?.name}</p>
+            <h5>{user?.email || u?.email }</h5>
+            <p>{user?.role?.name || u?.role?.name }</p>
           </div>
           <ul>
             <li>

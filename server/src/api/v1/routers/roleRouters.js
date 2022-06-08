@@ -8,8 +8,8 @@ const {
 const { createRoll, getAllRoles, getSingleRole, updateSingleRole, deleteSingleRole } = require("../../controllers/roleController");
 
 //all role must be on top
-router.route("/roles")
-    .get(getAllRoles);
+router.route("/")
+    .get(Authorize,getAllRoles);
 
 router.route("/:id")
     .get(Authorize, isMasterUser, getSingleRole)

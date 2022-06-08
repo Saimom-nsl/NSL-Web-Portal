@@ -32,69 +32,69 @@ const EmployeeProfile = () => {
         >
           <img
             src={manimg}
-            className="pt-2"
             style={{ width: "50%", margin: "auto" }}
-            class="card-img-top p-2"
+            className="card-img-top p-2"
             alt="..."
           />
-          <div class="card-body">
-            <h5 class="card-title text-center p-2">{employee?.firstName}{" "}{employee?.middleName}{" "}{employee?.lastName}</h5>
+          <div className="card-body">
+            <h5 className="card-title text-center p-2">{employee?.firstName}{" "}{employee?.middleName}{" "}{employee?.lastName}</h5>
+            <button className="">Edit</button>
             <div className="d-flex justify-content-between center p-3">
-              <p class="card-text">{employee?.email || "N/A"}</p>
+              <p className="card-text">{employee?.email || "N/A"}</p>
               <span>
-                <i class="fas fa-at"></i>
+                <i className="fas fa-at"></i>
               </span>
             </div>
             <div className="d-flex justify-content-between p-3">
-              <p class="card-text">{employee?.personalPhoneNumber}</p>
+              <p className="card-text">{employee?.personalPhoneNumber}</p>
               <span>
-                <i class="fas fa-phone"></i>
+                <i className="fas fa-phone"></i>
               </span>
             </div>
             <div className="d-flex justify-content-between p-3">
-              <p class="card-text">{employee?.skypeId || "N/A"}</p>
+              <p className="card-text">{employee?.skypeId || "N/A"}</p>
               <span>
-                <i class="fab fa-skype"></i>
+                <i className="fab fa-skype"></i>
               </span>
             </div>
             <div className="d-flex justify-content-between p-3">
-              <p class="card-text">{employee?.presentAddress || "N/A"}</p>
+              <p className="card-text">{employee?.presentAddress || "N/A"}</p>
               <span>
-                <i class="fas fa-location"></i>
+                <i className="fas fa-location"></i>
               </span>
             </div>
             <div className="d-flex justify-content-between p-3">
-              <p class="card-text">{employee?.permanentAddress || "N/A"}</p>
+              <p className="card-text">{employee?.permanentAddress || "N/A"}</p>
               <span>
-                <i class="fas fa-location"></i>
+                <i className="fas fa-location"></i>
               </span>
             </div>
             <div className="d-flex justify-content-between p-3">
-              <p class="card-text text-capitalize">{employee?.gender || "N/A"}</p>
+              <p className="card-text text-capitalize">{employee?.gender || "N/A"}</p>
               <span>
                 {employee?.gender === "male" ? (
-                  <i class="fas fa-male"></i>
+                  <i className="fas fa-male"></i>
                 ) : employee?.gender === "female" ? (
-                  <i class="fas fa-female"></i>
+                  <i className="fas fa-female"></i>
                 ) : (
-                  <i class="fas fa-genderless"></i>
+                  <i className="fas fa-genderless"></i>
                 )}
               </span>
             </div>
             <div className="d-flex justify-content-between p-3">
-              <p class="card-text">{employee?.bloodGroup || "N/A"}</p>
+              <p className="card-text">{employee?.bloodGroup || "N/A"}</p>
               <span>
-                <i class="fas fa-medkit"></i>
+                <i className="fas fa-medkit"></i>
               </span>
             </div>
           </div>
         </div>
       </div>
-      <div className="col-md-4 m-1">
+      <div className="col-md-5 m-1">
         <div className="card h-100">
-          <div class="card-body">
-            <h5 class="card-title text-center p-2">Projects</h5>
-            <table class="table table-striped">
+          <div className="card-body">
+            <h5 className="card-title text-center p-2">Projects</h5>
+            <table className="table table-striped">
               <thead>
                 <tr>
                   <th scope="col">Project Id</th>
@@ -122,10 +122,10 @@ const EmployeeProfile = () => {
           className="card h-100"
           // style={{ width: "18rem", height: "calc(100vh-7vh)" }}
         >
-          <div class="card-body">
-            <h5 class="card-title text-center p-2">Skills</h5>
+          <div className="card-body">
+            <h5 className="card-title text-center p-2">Skills</h5>
             <div className="d-flex justify-content-between center p-3">
-              <table class="table table-striped">
+              <table className="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">Skill</th>
@@ -133,9 +133,9 @@ const EmployeeProfile = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr className="p-4">
                     <td>Node JS</td>
-                    <td>Beagainer</td>
+                    <td><i className="fas fa-signal-3"></i></td>
                   </tr>
                 </tbody>
               </table>

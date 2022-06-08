@@ -3,16 +3,15 @@ const User = require("../models/userModel");
 const Skills = require("../models/Skills");
 module.exports.createdSingleEmployee = async(data)=> {
     const {nslId} = data;
-    const employee = await Employee.findOne({nslId});
-    if(employee) throw new Error("Already nsl id used");
-
     const {role,email, ...rest} = data;
     const user = await User.findOne({email});
     if(user) throw new Error("Email already used");
-    // console.log(employee);
-    const savedEmployee = await new Employee({...rest}).save();
-    //using default password
+    const employee = await Employee.findOne({nslId});
+    if(employee) throw new Error("Already nsl id used");
+
     const savedUser = await new User({email: email, password:"12345", role: role}).save();
+    const savedEmployee = await new Employee({...rest, email}).save();
+    //using default password
     return {savedEmployee, savedUser};
 }
 
@@ -42,18 +41,17 @@ module.exports.createSkillsforSingleUser = async(skills)=> {
 
 }
 module.exports.getAllEmployee = async(query)=> {
-    console.log("hello");
-    // let order = query.order === "desc"? -1:1;
-    // let sortBy = query.sortBy ? query.sortBy:'_id';
-    // let limit = query.limit ? parseInt(query.limit):10;
+    // console.log("hello");
+    console.log(query);
+    let order = query.orderBy === "desc"? -1:1;
+    let sortBy = query.sortBy ? query.sortBy:'_id';
+    let limit = query.limit ? parseInt(query.limit):10;
     // let skip = parseInt(skip);
-    // let filters = req.body.filters;
-    // let args={};
-    const employees = await Employee.find();
-    // console.log(employees);
-    // .select({updatedAt: 0, createdAt: 0, __v:0})
-    // .limit(limit)
-    // .sort({[sortby]: order})
+    const employees = await Employee.find()
+    .select({updatedAt: 0, createdAt: 0, __v:0, skills:0, bloodGroup: 0, 
+        officePhoneNumber:0, personalPhoneNumber: 0})
+    .limit(limit)
+    .sort({[sortBy]: order})
     // .skip(skip)
     return employees;
 }

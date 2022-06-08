@@ -61,3 +61,4 @@ module.exports.getAllUser = async(data)=> {
     .sort({[sortby]: order})
     return users;
 }
+

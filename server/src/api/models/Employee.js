@@ -6,6 +6,9 @@ const employeeSchema = new Schema({
         type: String,
         set: (v)=> capitalizeFirstLetter(v)
     },
+    email: {
+        type: String,
+    },
     lastName: {
         type: String,
         set: (v)=> capitalizeFirstLetter(v)

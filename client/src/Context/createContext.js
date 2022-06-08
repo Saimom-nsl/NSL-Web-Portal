@@ -14,12 +14,12 @@ let initialState = {
 
 
 const Createcontext = () => {
-  
+const token = localStorage.getItem("token");  
   useEffect(()=>{
     // let token = localStorage.getItem("token");
 
-    if(localStorage.getItem("token")){
-      getToken(JSON.parse(localStorage.getItem("token")))
+    if(token){
+      getToken(JSON.parse(token))
     }
   },[]);
   

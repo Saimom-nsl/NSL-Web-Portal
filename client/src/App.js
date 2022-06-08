@@ -15,6 +15,8 @@ import EmployeeList from './Components/EmployeeComponents/EmployeeList';
 import EmployeeProfile from './Components/EmployeeProfile/EmployeeProfile';
 import Leave from './pages/Leave';
 import Projects from './pages/Projects';
+import SingleProjectInfo from './pages/SingleProjectInfo';
+import EditProfile from './Components/EditProfile/EditProfile';
 
 function App() {
   return (
@@ -31,8 +33,11 @@ function App() {
         <Route path='/employees' element={<PrivateRoute><EmployeeList /></PrivateRoute>}></Route>
         <Route path='/leave' element={<PrivateRoute>< Leave/></PrivateRoute>}></Route>
         <Route path='/projects' element={<PrivateRoute>< Projects/></PrivateRoute>}></Route>
+        <Route path='/editprofile' element={<PrivateRoute>< EditProfile/></PrivateRoute>}></Route>
 
         <Route path='/employees/:pid' element={<PrivateRoute><EmployeeProfile /></PrivateRoute>}></Route>
+        <Route path='/projects/:pid' element={<PrivateRoute><SingleProjectInfo /></PrivateRoute>}></Route>
+
 
         {/* <Route path="/signup" element={<Signup/>}></Route> */}
         {/* <Route path='/changepassword' element={<ChangePassword />} /> */}

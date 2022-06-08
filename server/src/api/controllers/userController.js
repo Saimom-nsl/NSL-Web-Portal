@@ -6,7 +6,8 @@ const Role = require("../models/Role");
 const { validationMessages, isErrorFounds } = require("../helpers/errorHelper");//validation msg formatter
 const { signinToken, tokenDecoder } = require("../helpers/TokenCreation");
 const {passwordHashing} = require("../helpers/commonHelper");
-const {loginHandler, changePassword, getUserInfo, getAllUser} = require("../services/userService")
+const {loginHandler, changePassword, getUserInfo, getAllUser} = require("../services/userService");
+const Employee = require("../models/Employee");
 
 
 

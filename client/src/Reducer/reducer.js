@@ -4,7 +4,8 @@ export const reducer = (state,action) => {
             state.toggle = action.payload;
         }
         case 'GET_TOKEN':{
-            state.token = action.payload;
+
+            return{...state,token : action.payload};
         }
         case 'GET_MESSAGE':
             state.msg = action.data

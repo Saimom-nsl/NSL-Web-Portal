@@ -16,8 +16,8 @@ module.exports.updateSingleEmployee = async(id, data)=> {
     return result;
 }
 
-module.exports.getAllEmployee = async()=> {
-    const employees = await getAllEmployee();
+module.exports.getAllEmployee = async(query)=> {
+    const employees = await getAllEmployee(query);
     if(!employees.length) throw new Error("No data found")
     // if(!employees.length)
     return employees;

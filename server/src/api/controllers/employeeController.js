@@ -99,7 +99,7 @@ module.exports.deleteSingleEmployee = async(req, res)=> {
 //get all employee
 module.exports.getAllEmployee = async(req, res)=>{
     try{
-        const employees = await getAllEmployee();
+        const employees = await getAllEmployee(req.query);
         // const {firstName, lastName, middleName} = employees;
         // if(req.user.role.name === 'superadmin'){
         //     return res.status(200).json(employees);
@@ -110,4 +110,15 @@ module.exports.getAllEmployee = async(req, res)=>{
     }
     // const users = await getAllEmployee()
     // return res.status(200).json({"users": users});
+}
+
+module.exports.nslIdCount = async(req, res)=>{
+    const usercount = await Employee.find()
+    if(usercount.length){
+        let count = new String (usercount.length+1000);
+        return res.status(200).json(count);
+    }else{
+        return res.status(400).json({"message": "Data Not Found"});
+
+    }
 }

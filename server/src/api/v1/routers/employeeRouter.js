@@ -7,7 +7,7 @@ const {
     getSingleEmployee, 
     updateSingleEmployee,
     deleteSingleEmployee,
-    createSingleEmployee
+    createSingleEmployee,nslIdCount
 } = require("../../controllers/employeeController");
 const { 
     dateValidation, 
@@ -20,7 +20,8 @@ const { employeeCreationValidation } = require("../../middleware/validation/empl
 
 
 router.route("/").post(employeeCreationValidation, errorsFoundMiddleware, createSingleEmployee)
-router.route("/all").get(getAllEmployee)
+router.route("/all").get(Authorize, getAllEmployee);
+router.route("/nslcount").get(Authorize,nslIdCount);
 
 router.route("/:id")
     .get(Authorize,getSingleEmployee)

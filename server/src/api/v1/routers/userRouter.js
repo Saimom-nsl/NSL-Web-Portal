@@ -20,6 +20,7 @@ router.route("/userinfo").get(Authorize,getUserInfo);
 
 router.route("/alluser").get(Authorize, getAllUser)
 
+
 router.route("/changepassword")
     .put(Authorize,passwordValidation,errorsFoundMiddleware,u_passwordChange);
 

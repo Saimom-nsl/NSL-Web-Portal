@@ -1,0 +1,14 @@
+[
+    {
+        "leaveType": "Paid",
+        "amount": 10
+    },
+    {
+        "leaveType": "medical",
+        "amount": 7
+    },
+    {
+        "leaveType": "unpaid",
+        "amount":365
+    }
+]

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup,Label, Input, Row, Col  } from "reactstrap";
-const EditProfile = () => {
+const EditProfile = ({props}) => {
   const [toggle, setToggole] = useState(false);
   const handleToggle = () => {
     setToggole(!toggle);
@@ -8,13 +8,15 @@ const EditProfile = () => {
   return (
     <div>
       <Button color="danger" onClick={handleToggle}>
-        Click Me
+        Edit
       </Button>
-      <Modal isOpen={toggle} toggle={handleToggle}>
+      <Modal isOpen={toggle} toggle={handleToggle} size="lg">
         <ModalHeader toggle={handleToggle}>Upadate Information</ModalHeader>
         <ModalBody>
           <Form>
-          <FormGroup className="md-form mb-2">
+            <Row>
+              <Col md="4">
+              <FormGroup className="md-form mb-2">
               <Label for="firstName">First Name</Label>
               <Input
                 id="firstName"
@@ -23,7 +25,9 @@ const EditProfile = () => {
                 type="text"
               />
             </FormGroup>
-            <FormGroup className="md-form mb-2">
+              </Col>
+              <Col md="4">
+              <FormGroup className="md-form mb-2">
               <Label for="middleName">Middle Name</Label>
               <Input
                 id="middleName"
@@ -32,7 +36,9 @@ const EditProfile = () => {
                 type="text"
               />
             </FormGroup>
-            <FormGroup className="md-form mb-2">
+              </Col>
+              <Col md="4">
+              <FormGroup className="md-form mb-2">
               <Label for="lastName">Last Name</Label>
               <Input
                 id="lastName"
@@ -40,14 +46,21 @@ const EditProfile = () => {
                 type="text"
               />
             </FormGroup>
+              </Col>
+            </Row>
+          <Row>
+            <Col md="6">
             <FormGroup className="md-form mb-2">
               <Label for="nslId">Nsl ID</Label>
               <Input
                 id="nslId"
                 name="nslId"
                 type="text"
+                readOnly
               />
             </FormGroup>
+            </Col>
+            <Col md="6">
             <FormGroup className="md-form mb-2">
               <Label for="nid">National ID</Label>
               <Input
@@ -56,6 +69,10 @@ const EditProfile = () => {
                 type="text"
               />
             </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="4">
             <FormGroup className="md-form mb-2">
               <Label for="email">Email</Label>
               <Input
@@ -64,6 +81,8 @@ const EditProfile = () => {
                 type="email"
               />
             </FormGroup>
+            </Col>
+            <Col md="4">
             <FormGroup className="md-form mb-2">
               <Label for="personalPhoneNumber">Personal Phone Number</Label>
               <Input
@@ -72,6 +91,8 @@ const EditProfile = () => {
                 type="text"
               />
             </FormGroup>
+            </Col>
+            <Col md="4">
             <FormGroup className="md-form mb-2">
               <Label for="officePhoneNumber">Office Phone Number</Label>
               <Input
@@ -80,6 +101,13 @@ const EditProfile = () => {
                 type="text"
               />
             </FormGroup>
+            </Col>
+          </Row>
+
+
+            
+          <Row>
+            <Col md="3">
             <FormGroup className="md-form mb-2">
               <Label for="joiningDate">Joining Date</Label>
               <Input
@@ -88,6 +116,8 @@ const EditProfile = () => {
                 type="date"
               />
             </FormGroup>
+            </Col>
+            <Col md="3">
             <FormGroup className="md-form mb-2">
               <Label for="role">Role</Label>
               <Input id="role" name="select" type="select">
@@ -98,6 +128,8 @@ const EditProfile = () => {
                 <option>5</option>
               </Input>
             </FormGroup>
+            </Col>
+            <Col md="3">
             <FormGroup className="md-form mb-2">
               <Label for="gender">Gender</Label>
               <Input
@@ -112,6 +144,8 @@ const EditProfile = () => {
                 <option>5</option>
               </Input>
             </FormGroup>
+            </Col>
+            <Col md="3">
             <FormGroup className="md-form mb-2">
               <Label for="bloodGroup">Blood Group</Label>
               <Input
@@ -126,6 +160,8 @@ const EditProfile = () => {
                 <option>5</option>
               </Input>
             </FormGroup>
+            </Col>
+          </Row>
             <FormGroup className="md-form mb-2">
               <Label for="presentAddress">Present Address</Label>
               <Input
@@ -142,15 +178,12 @@ const EditProfile = () => {
                 type="text"
               />
             </FormGroup>
-            
-            <Button>Submit</Button>
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={handleToggle}>
-            Do Something
+          <Button color="info" className="w-100 p-2" style={{"letterSpacing":"8px", "fontWeight":"bold"}}  size="xl" type="submit" onClick={handleToggle}>
+            UPDATE
           </Button>{" "}
-          <Button onClick={handleToggle}>Cancel</Button>
         </ModalFooter>
       </Modal>
     </div>

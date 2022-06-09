@@ -17,7 +17,7 @@ module.exports.u_sign = async(req, res)=> {
     try{
         const {email, password} = req.body
         const user = await loginHandler({email, password});
-        return res.status(200).json({"data":user});
+        return res.cookie("token",user.token).status(200).json({"data":user});
     }catch(err){
         return res.status(500).json({"message":err.message});
     }

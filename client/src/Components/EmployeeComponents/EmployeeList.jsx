@@ -5,6 +5,7 @@ import "../EmployeeComponents/employeelist.css";
 import manimg from "../../images/man.png";
 import { NavLink } from "react-router-dom";
 import AddEmployee from "../EmployeeProfileComponents/AddEmployee/AddEmployee";
+import jwtDecode from "jwt-decode";
 const EmployeeList = () => {
   const { user, token: contextToken } = useContext(ProjectContext);
   const [employees, setEmployees] = useState([]);
@@ -14,7 +15,7 @@ const EmployeeList = () => {
   });
   const {sortBy, orderBy} = query;
   let token = user.token;
-
+  // let usertokenDecode = token && jwtDecode(token);
   useEffect(() => {
     if(contextToken){
       getAllEmployees(token? token : contextToken ,{sortBy, orderBy})
@@ -29,30 +30,28 @@ const EmployeeList = () => {
     }
   }, [sortBy,orderBy, contextToken]);
 
-  // useEffect(())
   const changeHandlerForFilter = (e)=>{
     setQuery({...query,
       [e.target.name]: e.target.value
     })
   }
-
-
-  // console.log(query);
   return (
     <div>
+
       <div className="container">
         <div className="row bootstrap snippets bootdeys">
           <div className="col-md-6 col-sm-7">
-            <h2>Employees</h2>
           </div>
-
-          <div className="d-flex justify-content-end">
-            
-            <div>
+          <div className="d-flex justify-content-between p-2">
+            {user?.role?.name === 'superadmin' && 
+            <div className="w-100">
               <AddEmployee />
             </div>
+}
+
             {/* fileter */}
-            <div className="w-20">
+            <div className="d-flex justify-content-end flex-2 w-100">
+            <div className="">
               {/* <FilterEmployee/> */}
               <select
                 className="form-select w-100"
@@ -87,17 +86,12 @@ const EmployeeList = () => {
                 <option value={"desc"}>DES</option>
               </select>
             </div>
+            </div>
+
+            
           </div>
         </div>
-        <div className="">
-          <button
-            className="member-details btn btn-lg btn-info "
-            data-toggle="modal"
-            data-target="#modalLoginForm"
-          >
-            Add Employee
-          </button>
-        </div>
+            
         {employees.map((employee) => (
           <div key={employee._id} className="member-entry">
             <a href="#" className="member-img">
@@ -114,17 +108,6 @@ const EmployeeList = () => {
                 </NavLink>{" "}
               </h4>
               <div className="row info-list">
-                {/* <div className="col-sm-4"> 
-                <i className="fa fa-briefcase"></i>
-                Co-Founder at <a href="#">Complete Tech</a> 
-            </div>  */}
-                {/* <div className="col-sm-4">
-                  <i className="fas fa-calendar-check"></i>
-                  <a href="#">
-                    {employee.joiningDate &&
-                      new Date(employee.joiningDate).toLocaleDateString("eu")}
-                  </a>
-                </div> */}
                 <div className="clear"></div>
                 <div className="col-sm-4">
                   <i className="fas fa-location"></i>
@@ -138,43 +121,6 @@ const EmployeeList = () => {
             </div>
           </div>
         ))}
-        {/* <div className="member-entry"> 
-    <a href="#" className="member-img"> 
-        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" className="img-rounded" /> 
-        <i className="fa fa-forward"></i> 
-    </a> 
-
-    <div className="member-details"> 
-        <h4> <a href="#">Johnnie Linton</a> </h4> 
-        <div className="row info-list"> 
-            <div className="col-sm-4"> 
-                <i className="fa fa-briefcase"></i>
-                Co-Founder at <a href="#">Complete Tech</a> 
-            </div> 
-            <div className="col-sm-4"> 
-                <i className="fa fa-twitter"></i> 
-                <a href="#">@johnnie</a> 
-            </div> 
-            <div className="col-sm-4"> 
-                <i className="fa fa-facebook"></i> 
-                <a href="#">fb.me/johnnie</a> 
-            </div> 
-            <div className="clear"></div> 
-            <div className="col-sm-4"> 
-                <i className="fa fa-location"></i> 
-                <a href="#">Prishtina</a> 
-            </div> 
-            <div className="col-sm-4"> 
-                <i className="fa fa-envelope"></i> 
-                <a href="#">john@gmail.com</a> 
-            </div> 
-            <div className="col-sm-4"> 
-                <i className="fa fa-linkedin"></i> 
-                <a href="#">johnkennedy</a> 
-            </div> 
-        </div> 
-    </div> 
-</div> */}
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+
 export const reducer = (state,action) => {
     switch (action.type) {
         case 'TOGGLE':{
@@ -7,6 +8,7 @@ export const reducer = (state,action) => {
 
             return{...state,token : action.payload};
         }
+ 
         case 'GET_MESSAGE':
             state.msg = action.data
             return { ...state, msg: state.msg }

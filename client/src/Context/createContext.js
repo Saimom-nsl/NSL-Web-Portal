@@ -50,6 +50,11 @@ const token = localStorage.getItem("token");
       payload: {}
     })
   }
+  // const tokendecoder = tok => {
+  //   return dispatch({
+  //     type: "TOKEN_DECODER",
+  //     payload: tok
+  // }
 
   // const setToggle = ()=> {
   //   return dispatch({

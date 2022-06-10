@@ -54,6 +54,7 @@ const AddEmployee = () => {
     }
   },[token])
  
+  const {btnDisabled} = info
   const {
     firstName, 
     middleName, 
@@ -70,17 +71,33 @@ const AddEmployee = () => {
     permanentAddress,joiningDate
   } = emp;
   const handleChange = (e)=>{
+    
     setEmp({
       ...emp,
       [e.target.name] : e.target.value
     })
+    if(firstName.length, 
+      middleName.length, 
+      lastName.length,
+      nslId.length,
+      nid.length,
+      email.length,
+      personalPhoneNumber.length,
+      gender.length,
+      role.length,
+      joiningDate.length){
+        setInfo({...info, btnDisabled: false})
+      }
   }
   const handleSubmit = (e)=> {
     e.preventDefault();
-    console.log(emp);
+    // console.log(emp);
+    
     newEmployee(emp, token).then(data=> {
+      setInfo({...info, btnDisabled: true})
       newEmployee(emp, user.token || token).then(data=> {
         setToggole(false);
+        setInfo({...info, btnDisabled: false})
 
       })
       
@@ -290,6 +307,7 @@ const AddEmployee = () => {
           onClick={handleToggle}
           color="info" 
           className="w-100" 
+          disabled={info.btnDisabled}
           style={{"letterSpacing":"8px", "fontWeight":"bold"}}  size="xl">
             ADD
           </Button>{" "}

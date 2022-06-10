@@ -25,7 +25,7 @@ module.exports.u_sign = async(req, res)=> {
 
 module.exports.getUserInfo = async(req, res)=> {
     try{
-        const user = await getUserInfo(req.user);
+        const user = await getUserInfo(req.user); 
         return res.status(200).json({'data': user});
     }catch(e){
         return res.status(500).json({"message": "User data not found"})

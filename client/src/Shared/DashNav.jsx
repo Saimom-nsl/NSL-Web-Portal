@@ -38,20 +38,20 @@ const DashNav = () => {
     body.classList.toggle("active");
     setToggle(!toggle);
   };
+  // style={
+  //   (toggle || auth)? {"width": "calc(100% - 225px)", "marginLeft": "225px"}:
+  //   {"width": "100%", "marginLeft": "0"}
   return (
     <div className="wrapper">
-      <div className="section" style={
-        (toggle || auth)? {"width": "calc(100% - 225px)", "marginLeft": "225px"}:
-        {"width": "100%", "marginLeft": "0"}
-      }>
+      <div className="section">
         <div className="top_navbar">
-          {auth && (
+          {/* {auth && (
               <div className="hamburger" onClick={handleToggle}>
                 <span >
                   <i className="fas fa-bars"></i>
                 </span>
               </div>
-          )}
+          )} */}
           <NavLink className="navbar-brand" to="#">
             <h1 className="color">
               Next Solution<span className="folio">Lab</span>
@@ -61,6 +61,11 @@ const DashNav = () => {
       </div>
       {auth && (
         <div className="sidebar">
+          <div className="hamburger" onClick={handleToggle}>
+                <span >
+                  <i className="fas fa-bars"></i>
+                </span>
+          </div>
           <div className="profile">
             <img src={manimg} alt="profile_picture" />
             <h5>{user?.email || u?.email }</h5>

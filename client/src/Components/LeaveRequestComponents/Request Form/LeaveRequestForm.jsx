@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Form,
   FormGroup,
@@ -10,17 +10,35 @@ import {
   Modal,
   Button,
 } from "reactstrap";
+import { getAllEmployees } from "../../../API/employee";
+import { ProjectContext } from "../../../Context/createContext";
+const categories = ["marriage", "events", "death"]; 
 const LeaveRequestForm = () => {
   const [toggle, setToggole] = useState(false);
+  const [emp, setEmp] = useState([])
+  const {token, user} = useContext(ProjectContext);
   const [leaveRequest, setLeaveRequest] = useState({
       empId:"",
       leaveType: "",
+      leaveCategory: "",
+      leaveReason:"",
       startDate: "",
       endDate: "",
       amount: "",
       duration: ""
   })
-  const {duration, empId, leaveType, startDate, endDate} = leaveRequest;
+  const {duration, empId, leaveType, startDate, endDate, leaveCategory} = leaveRequest;
+  useEffect(()=> {
+    if(token || user.token){
+
+      getAllEmployees(user.token|| token).then(data=> {
+        const response = data.data.data;
+          setEmp([...response]);
+      }).catch(err=> {
+        console.log(err);
+      })
+    }
+  },[token])
   const handleChange = (e)=> {
       setLeaveRequest({
           ...leaveRequest,
@@ -48,10 +66,14 @@ const LeaveRequestForm = () => {
                 id="empId"
                 name="empId"
                 // placeholder="with a placeholder"
-                type="text"
+                type="select"
                 value={empId}
                 onChange={handleChange}
-              />
+              >
+                {emp.map(em=> {
+                  return <option value={em?._id}>{em?.firstName}{" "}{em?.lastName}</option>
+                })}
+              </Input>
             </FormGroup>
             <FormGroup className="md-form mb-2">
               <Label for="duration">Day Range</Label>
@@ -82,7 +104,34 @@ const LeaveRequestForm = () => {
               <option>Medical</option>
               </Input>
             </FormGroup>
+            <FormGroup className="md-form mb-2">
+              <Label for="leaveType">Leave Category</Label>
+              <Input
+                name="leaveCategory"
+                type="text"
+                list="categories"
+                value={leaveCategory}
+                onChange={handleChange}
+              />
+                <datalist id="categories">
+              {categories.map(cat=> {
+                return <option value={cat}>{cat}</option>
+              })}
+              </datalist>
+            </FormGroup>
             
+            <FormGroup className="md-form mb-2">
+              <Label for="leaveReason">Reason</Label>
+              <Input
+                id="leaveReason"
+                name="leaveReason"
+                // placeholder="with a placeholder"
+                type="textarea"
+                value={startDate}
+                onChange={handleChange}
+              />
+            </FormGroup>
+
             <FormGroup className="md-form mb-2">
               <Label for="startDate">{duration === "range"? 'Start Date': 'Date'}</Label>
               <Input

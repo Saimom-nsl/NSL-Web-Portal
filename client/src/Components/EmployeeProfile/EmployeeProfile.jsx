@@ -5,15 +5,16 @@ import "../EmployeeProfile/employeeprofile.css";
 import {} from "react-router-dom";
 import { getSingleEmployee } from "../../API/employee";
 import { ProjectContext } from "../../Context/createContext";
+import Skill from "../Skill/Skill";
 const gender = "male"
 const EmployeeProfile = () => {
   const [employee, setEmployee] = useState({});
   const {pid} = useParams();
-  const  {token} = useContext(ProjectContext);
+  const  {token, user} = useContext(ProjectContext);
   useEffect(()=> {
-    if(token){
+    if(token || user.token){
 
-      getSingleEmployee(pid, token).then(data=> {
+      getSingleEmployee(pid, user.token || token).then(data=> {
         const response = data.data;
         if(response){
           setEmployee(response)
@@ -118,10 +119,14 @@ const EmployeeProfile = () => {
         </div>
       </div>
       <div className="col-md-3 m-1">
-        <div
-          className="card h-100"
-          // style={{ width: "18rem", height: "calc(100vh-7vh)" }}
-        >
+
+        {/* anadagon start */}
+
+        {/* anadagon end */}
+
+        <div className="card h-20"
+          // style={{ width: "18rem", height: "calc(100vh-7vh)" }} 
+          >
           <div className="card-body">
             <h5 className="card-title text-center p-2">Skills</h5>
             <div className="d-flex justify-content-between center p-3">
@@ -142,6 +147,7 @@ const EmployeeProfile = () => {
             </div>
           </div>
         </div>
+        <Skill />
       </div>
     </div>
   );

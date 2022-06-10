@@ -40,3 +40,4 @@ module.exports.deleteSingleRole = async (req, res) => {
     await Role.findOneAndDelete({_id: id});
     res.status(200).json({"message":"Deleted Successfully"})
 }
+

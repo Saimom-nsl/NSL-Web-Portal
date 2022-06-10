@@ -15,7 +15,7 @@ const EmployeeList = () => {
   });
   const {sortBy, orderBy} = query;
   let token = user.token;
-  // let usertokenDecode = token && jwtDecode(token);
+  let usertokenDecode = contextToken && jwtDecode(contextToken);
   useEffect(() => {
     if(contextToken){
       getAllEmployees(token? token : contextToken ,{sortBy, orderBy})
@@ -43,7 +43,7 @@ const EmployeeList = () => {
           <div className="col-md-6 col-sm-7">
           </div>
           <div className="d-flex justify-content-between p-2">
-            {user?.role?.name === 'superadmin' && 
+            {user?.role?.name === 'superadmin' || usertokenDecode?.role?.name === 'superadmin' && 
             <div className="w-100">
               <AddEmployee />
             </div>

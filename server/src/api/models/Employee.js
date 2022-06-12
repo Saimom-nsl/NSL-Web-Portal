@@ -55,4 +55,5 @@ const employeeSchema = new Schema({
 
 }, {timestamps: true});
 
+
 module.exports = model("Employee", employeeSchema);

@@ -2,11 +2,14 @@
 export const reducer = (state,action) => {
     switch (action.type) {
         case 'TOGGLE':{
-            state.toggle = action.payload;
+           return{ ...state, toggle : action.payload};
         }
+        
         case 'GET_TOKEN':{
-
             return{...state,token : action.payload};
+        }
+        case 'TOKEN_DECODER': {
+            return {...state, tokenuser: action.payload}
         }
  
         case 'GET_MESSAGE':

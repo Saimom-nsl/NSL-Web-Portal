@@ -1,9 +1,10 @@
 const {Schema, model} = require("mongoose");
 
 const skillsSchema = new Schema({
-    empId: {
+    employeeId: {
         type: Schema.Types.ObjectId,
-        ref: "Employee"
+        ref: "Employee",
+        
     },
     skillName: {
         type: String
@@ -13,5 +14,6 @@ const skillsSchema = new Schema({
         enum: ["Begainer", "Intermediate", "Advanced"]
     }
 }, {timestamps: true});
+
 
 module.exports = model("Skills", skillsSchema);

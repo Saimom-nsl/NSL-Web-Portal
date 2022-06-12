@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import manimg from "../../images/man.png";
 import "../EmployeeProfile/employeeprofile.css";
-import {} from "react-router-dom";
 import { getSingleEmployee } from "../../API/employee";
 import { ProjectContext } from "../../Context/createContext";
-import Skill from "../Skill/Skill";
+import OthersInformation from "./RighSideInformation/OthersInformation";
 const gender = "male"
 const EmployeeProfile = () => {
   const [employee, setEmployee] = useState({});
@@ -13,7 +12,7 @@ const EmployeeProfile = () => {
   const  {token, user} = useContext(ProjectContext);
   useEffect(()=> {
     if(token || user.token){
-
+      
       getSingleEmployee(pid, user.token || token).then(data=> {
         const response = data.data;
         if(response){
@@ -119,35 +118,7 @@ const EmployeeProfile = () => {
         </div>
       </div>
       <div className="col-md-3 m-1">
-
-        {/* anadagon start */}
-
-        {/* anadagon end */}
-
-        <div className="card h-20"
-          // style={{ width: "18rem", height: "calc(100vh-7vh)" }} 
-          >
-          <div className="card-body">
-            <h5 className="card-title text-center p-2">Skills</h5>
-            <div className="d-flex justify-content-between center p-3">
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Skill</th>
-                    <th scope="col">Level</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="p-4">
-                    <td>Node JS</td>
-                    <td><i className="fas fa-signal-3"></i></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <Skill />
+        <OthersInformation employee={employee} />
       </div>
     </div>
   );

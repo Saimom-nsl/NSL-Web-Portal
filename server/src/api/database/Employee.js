@@ -9,8 +9,8 @@ module.exports.createdSingleEmployee = async(data)=> {
     const employee = await Employee.findOne({nslId});
     if(employee) throw new Error("Already nsl id used");
 
-    const savedUser = await new User({email: email, password:"12345", role: role}).save();
     const savedEmployee = await new Employee({...rest, email}).save();
+    const savedUser = await new User({email: email, password:"12345", role: role, employeeId: savedEmployee}).save();
     //using default password
     return {savedEmployee, savedUser};
 }

@@ -22,6 +22,7 @@ module.exports.SignIn = async(loginCredentials)=> {
         return {...rest, token};
     }else{
         if(bodyPassword === user.password){
+            console.log(user);
             const {password, token:restoken, lastLogin, __v,createdAt, updatedAt, ...rest} = user;
             const token = await jwt.sign(rest, process.env.JWT_SECRET_KEY, {expiresIn: "1d"});
             const userInfo = await User.findOneAndUpdate({email: user.email}, {$set: {

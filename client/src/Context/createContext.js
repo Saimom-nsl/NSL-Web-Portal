@@ -21,7 +21,7 @@ const token = localStorage.getItem("token");
     if(token){
       getToken(JSON.parse(token))
     }
-  },[]);
+  },[token]);
   
   const [state, dispatch] = useReducer(reducer, initialState);
   const setMsg = (message) => {

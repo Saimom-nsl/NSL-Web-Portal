@@ -2,11 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
-import Home from './Body/Home';
 import Login from './Body/Login';
-import Signup from './Body/Signup';
-import Navbar from './Shared/Navbar';
-import EmployeeActivation from './Body/EmployeeActivation';
 import ChangePassword from './Components/ChangePassword';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
@@ -17,6 +13,9 @@ import Leave from './pages/Leave';
 import Projects from './pages/Projects';
 import SingleProjectInfo from './pages/SingleProjectInfo';
 import EditProfile from './Components/EditProfile/EditProfile';
+import AddEmp from './Components/EmployeeProfileComponents/addemp/AddEmp';
+import AdminRoute from './Components/SuperAdminRoute/AdminRoute';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -30,11 +29,12 @@ function App() {
         <Route path="/" element={<Login/>}></Route>
         {/* login-user-dashboard-route-link */}
         <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>}></Route>
+        <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>}></Route>
         <Route path='/employees' element={<PrivateRoute><EmployeeList /></PrivateRoute>}></Route>
+        <Route path='/addemployee' element={<AdminRoute><AddEmp /></AdminRoute>}></Route>
         <Route path='/leave' element={<PrivateRoute>< Leave/></PrivateRoute>}></Route>
         <Route path='/projects' element={<PrivateRoute>< Projects/></PrivateRoute>}></Route>
         <Route path='/editprofile' element={<PrivateRoute>< EditProfile/></PrivateRoute>}></Route>
-
         <Route path='/employees/:pid' element={<PrivateRoute><EmployeeProfile /></PrivateRoute>}></Route>
         <Route path='/projects/:pid' element={<PrivateRoute><SingleProjectInfo /></PrivateRoute>}></Route>
 

@@ -3,7 +3,7 @@ const Skills = require("../models/Skills")
 
 module.exports.createSkillForAUser = async(data)=> {
     const result = await new Skills(data).save();
-    await Employee.findOneAndUpdate({_id: data.empId}, {$set: {
+    await Employee.findOneAndUpdate({_id: data.employeeId}, {$push: {
         skills: result
     }});
     if(result) return result;
@@ -11,7 +11,18 @@ module.exports.createSkillForAUser = async(data)=> {
 }
 
 module.exports.deleteSkillForAUser = async(data)=> {
-    const result = await Skills.findOneAndDelete({empId: data.empId, _id: data.skillId})
-    if(!result) throw new Error("Not found skill")
+    const skill = await Skills.findOne({_id: data.skillId});
+    if(!skill) throw new Error("Skill not founded")
+    const result = await Skills.findOneAndDelete({employeeId: data.employeeId, _id: data.skillId});
+    const empSkill = await Employee.findByIdAndUpdate({_id: employeeId}, {$pop: {
+        skills: data.skillId
+    }});
+    console.log(empSkill);
+    if(!result && !empSkill) throw new Error("Not found skill")
     return "Deleted successfully"
+}
+module.exports.getSkillDetails = async(data)=> {
+    const result = await Skills.find({employeeId: data})
+    .select({createdAt: 0, updatedAt: 0, __v:0});
+    return result;
 }

@@ -3,12 +3,14 @@ import { getAllEmployees } from "../../API/employee";
 import { ProjectContext } from "../../Context/createContext";
 import "../EmployeeComponents/employeelist.css";
 import manimg from "../../images/man.png";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import AddEmployee from "../EmployeeProfileComponents/AddEmployee/AddEmployee";
 import jwtDecode from "jwt-decode";
+import { Button } from "reactstrap";
 const EmployeeList = () => {
-  const { user, token: contextToken } = useContext(ProjectContext);
+  const { user, token: contextToken, tokenUser } = useContext(ProjectContext);
   const [employees, setEmployees] = useState([]);
+  const navigate = useNavigate();
   const [query, setQuery] = useState({
     sortBy: "firstName",
     orderBy: "asc", 
@@ -35,6 +37,8 @@ const EmployeeList = () => {
       [e.target.name]: e.target.value
     })
   }
+  const userinfo = jwtDecode(JSON.parse(localStorage.getItem("token"))) ;
+
   return (
     <div>
 
@@ -43,9 +47,12 @@ const EmployeeList = () => {
           <div className="col-md-6 col-sm-7">
           </div>
           <div className="d-flex justify-content-between p-2">
-            {user?.role?.name === 'superadmin' || usertokenDecode?.role?.name === 'superadmin' && 
+            {(user?.role?.name === 'superadmin' || userinfo?.role?.name === 'superadmin') && 
             <div className="w-100">
-              <AddEmployee />
+              <Button color="primary" size="md" className="p-2"
+              onClick={()=> navigate("/addemployee") }
+              >Add New Employee</Button>
+              {/* <AddEmployee /> */}
             </div>
 }
 

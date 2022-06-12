@@ -53,5 +53,5 @@ module.exports.leaveCreateValidation = [
 module.exports.skillCreationValidation = [
     body("skillName").notEmpty().withMessage("Required"),
     body("skillLevel").notEmpty().withMessage("Required"),
-    body("empId").notEmpty().withMessage("Required"),
+    body("employeeId").notEmpty().withMessage("Required"),
 ]

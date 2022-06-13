@@ -5,7 +5,7 @@ const { skillCreationValidation } = require("../../middleware/validation/commonV
 const router = require("express").Router();
 
 router.route("/")
-    .get( getSkillForAEmployee)
+    .get(Authorize, getSkillForAEmployee)
     .post(Authorize,skillCreationValidation,errorsFoundMiddleware,createSkillForAUser)
     .delete(Authorize, deleteSkillForAUser)
     // .get()

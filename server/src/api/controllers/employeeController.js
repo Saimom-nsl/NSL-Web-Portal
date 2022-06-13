@@ -76,7 +76,7 @@ module.exports.getSingleEmployee = async(req, res)=> {
 module.exports.updateSingleEmployee = async(req, res)=> {
     
     try{
-        const data = {...req.body};
+        const data = req.body;
         const updatedEmployee = await updateSingleEmployee(req.params.id, data);
         return res.status(200).json({"message": 'Updated successfully', updatedEmployee})
     }catch(e){

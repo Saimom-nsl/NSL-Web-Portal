@@ -16,6 +16,7 @@ import EditProfile from './Components/EditProfile/EditProfile';
 import AddEmp from './Components/EmployeeProfileComponents/addemp/AddEmp';
 import AdminRoute from './Components/SuperAdminRoute/AdminRoute';
 import Profile from './pages/Profile';
+import ProfileNotFound from './Components/NotFoundPages/ProfileNotFound';
 
 function App() {
   return (
@@ -34,8 +35,10 @@ function App() {
         <Route path='/addemployee' element={<AdminRoute><AddEmp /></AdminRoute>}></Route>
         <Route path='/leave' element={<PrivateRoute>< Leave/></PrivateRoute>}></Route>
         <Route path='/projects' element={<PrivateRoute>< Projects/></PrivateRoute>}></Route>
-        <Route path='/editprofile' element={<PrivateRoute>< EditProfile/></PrivateRoute>}></Route>
+        <Route path='/editprofile' element={<AdminRoute>< EditProfile/></AdminRoute>}></Route>
+        <Route path='/profilenotfound' element={<PrivateRoute>< ProfileNotFound/></PrivateRoute>}></Route>
         <Route path='/employees/:pid' element={<PrivateRoute><EmployeeProfile /></PrivateRoute>}></Route>
+        <Route path='/employees/:pid/update' element={<AdminRoute><EditProfile /></AdminRoute>}></Route>
         <Route path='/projects/:pid' element={<PrivateRoute><SingleProjectInfo /></PrivateRoute>}></Route>
 
 

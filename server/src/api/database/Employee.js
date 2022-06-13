@@ -21,10 +21,11 @@ module.exports.getSingleEmployee = async(nslId)=> {
     const {__v,createdAt, updatedAt, ...rest} = employee;
     return rest;
 }
-module.exports.updateSingleEmployee = async(nslId, data) => {
-    const employee = await Employee.findOne({nslId}).lean();
+module.exports.updateSingleEmployee = async(id, data) => {
+    if(new String(id).length <= 15) throw new Error("Invalid Id")
+    const employee = await Employee.findOne({_id: id}).lean();
     if(!employee) throw new Error("Employee data not found");
-    const result = await Employee.findOneAndUpdate({nslId}, {$set: {...data}}, {new: true}).lean();
+    const result = await Employee.findOneAndUpdate({_id: id}, {$set: {...data}}, {new: true}).lean();
     const {__v,createdAt, updatedAt, ...rest} = result;
     return rest;
 

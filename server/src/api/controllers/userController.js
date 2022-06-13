@@ -25,8 +25,18 @@ module.exports.u_sign = async(req, res)=> {
 
 module.exports.getUserInfo = async(req, res)=> {
     try{
-        const user = await getUserInfo(req.user); 
-        return res.status(200).json({'data': user});
+        const {employeeId} = req.query;
+        console.log(employeeId);
+        if(employeeId){
+            const user = await User.findOne({employeeId: employeeId}).lean()
+            .select({password: 0, __v:0, createdAt: 0, updatedAt:0, token: 0});
+            if(!user) return res.status(400).json("Data not found");
+            return res.status(200).json(user);
+        } else{
+
+            const user = await getUserInfo(req.user);
+            return res.status(200).json({'data': user});
+        }
     }catch(e){
         return res.status(500).json({"message": "User data not found"})
     }
@@ -72,11 +82,11 @@ module.exports.getAllUser = async(req, res)=> {
 }
 //user info/role update for role
 module.exports.userUpdate = async(req, res)=>{
-    const {userid} = req.params;
-    const {role} = req.body;
-    console.log(typeof roleid);
-    await User.findOneAndUpdate({_id:userid}, {$set: {role}});
-    return res.status(200).json({"message": "Updated succcessfully"})
+    const {userId} = req.query;
+    const user = User.findOne({_id: userId});
+    if(!user) return res.status(400).json("User Not Found");
+    const result = await User.findOneAndUpdate({_id: userId}, {$set: {...req.body, token: ""}}, {new: true});
+    return res.status(200).json({"message": "Updated succcessfully", "data": result})
 }
 
 //password changes invite link for emp

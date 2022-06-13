@@ -16,7 +16,10 @@ const { Authorize, isMasterUser, errorsFoundMiddleware } = require("../../middle
 
 router.route("/signin")
     .post(verify_Sign_In_Module,u_sign);
-router.route("/userinfo").get(Authorize,getUserInfo);
+
+router.route("/userinfo")
+    .get(Authorize,getUserInfo)
+    .put(Authorize, )
 
 router.route("/alluser").get(Authorize, getAllUser)
 

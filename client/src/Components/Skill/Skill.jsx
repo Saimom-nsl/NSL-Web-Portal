@@ -11,6 +11,8 @@ const Skill = ({own, user, token, employeeId}) => {
      employeeId: "",
      isCreated: false,
    })
+
+   //toggle handleling
    const handleToggle = ()=> {
      setToggle(!toggle);
    }
@@ -20,14 +22,14 @@ const Skill = ({own, user, token, employeeId}) => {
      if(token && employeeId){
        deleteASkillForAEmployee(token, {employeeId: employeeId, skillId: id}).then(data=> {
         console.log(data); 
-        setSkillData({...skillData, isCreated: isCreated? false: true})
+          setSkills(()=>  skills.filter(skill => skill._id !== id))
        }).catch(err=> {
          console.log(err);
        })
      }
    }
 
-   //creating skill
+   //creating new skill
    const addToSkill = (e)=> {
      e.preventDefault();
      if(token && employeeId)
@@ -39,6 +41,7 @@ const Skill = ({own, user, token, employeeId}) => {
      })
    }
 
+   //skilldata
    const {skillLevel, skillName, isCreated} = skillData
    const handleChange = (e)=>{
      setSkillData({
@@ -49,6 +52,7 @@ const Skill = ({own, user, token, employeeId}) => {
      if(employeeId){
        getSkillForAEmployee(token, employeeId).then(data=> {
          const response = data.data.data;
+         console.log(response);
          setSkills([...response]);
        }).catch(err=> {
          console.log(err);
@@ -102,7 +106,7 @@ const Skill = ({own, user, token, employeeId}) => {
           <td>{skill.skillLevel}</td>
           <td  >
             {/* <i className="fas fa-edit" title='Edit'></i> */}
-            <i onClick={handleDelete(employeeId, skill._id)} className="fas fa-trash-alt" title='Delete'></i>
+            <i onClick={()=> handleDelete(employeeId, skill._id)} className="fas fa-trash-alt" title='Delete'></i>
             </td>
 
         </tr>

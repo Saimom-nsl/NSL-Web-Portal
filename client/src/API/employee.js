@@ -25,7 +25,15 @@ export const getSingleEmployee = (empId, token)=> axios.get(`${API}/employees/${
         "Authorization": `Bearer ${token}`
     }
 })
+
 export const nslIdCount = token=> axios.get(`${API}/employees/nslcount`,{
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    }
+})
+
+export const updateEmployeeInformation = (token, employeeInformation)=> axios.put(`${API}/employees/${employeeInformation._id}`,employeeInformation,{
     headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`

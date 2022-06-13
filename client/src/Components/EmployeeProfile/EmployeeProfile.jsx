@@ -1,28 +1,42 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams, useNavigate, NavLink } from "react-router-dom";
 import manimg from "../../images/man.png";
 import "../EmployeeProfile/employeeprofile.css";
 import { getSingleEmployee } from "../../API/employee";
 import { ProjectContext } from "../../Context/createContext";
 import OthersInformation from "./RighSideInformation/OthersInformation";
+import { Button } from "reactstrap";
+import { userInfoFromToken } from "../../helper/tokenDecoder";
 const gender = "male"
 const EmployeeProfile = () => {
   const [employee, setEmployee] = useState({});
   const {pid} = useParams();
   const  {token, user} = useContext(ProjectContext);
+  const navigate = useNavigate()
+
+  // console.log(userInfo());
+  
+  
+  //fetching single employee information
   useEffect(()=> {
     if(token || user.token){
-      
       getSingleEmployee(pid, user.token || token).then(data=> {
         const response = data.data;
         if(response){
           setEmployee(response)
+        }else{
+          navigate("/profilenotfound")
+
         }
       }).catch(e=> {
+        navigate("/profilenotfound")
+        
+
         console.log(e);
       })
     }
   },[token])
+
   return (
     <div className="d-flex justify-content-around p-4">
       <div className="col-md-3 m-1">
@@ -38,7 +52,10 @@ const EmployeeProfile = () => {
           />
           <div className="card-body">
             <h5 className="card-title text-center p-2">{employee?.firstName}{" "}{employee?.middleName}{" "}{employee?.lastName}</h5>
-            <button className="">Edit</button>
+            {(user?.role?.name === 'superadmin' || userInfoFromToken()?.role?.name === "superadmin") && <>
+            <NavLink state={employee} to={`/employees/${pid}/update`}>Update User Information</NavLink>
+            </>}
+            {/* <NavLink state={employee} to={`/employees/${pid}/update`}>Update User Information</NavLink> */}
             <div className="d-flex justify-content-between center p-3">
               <p className="card-text">{employee?.email || "N/A"}</p>
               <span>

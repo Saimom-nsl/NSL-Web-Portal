@@ -48,11 +48,6 @@ const employeeSchema = new Schema({
        type: String, 
     },
 
-    skills: {
-        type: [Schema.Types.ObjectId],
-        ref: "Skills"
-    }
-
 }, {timestamps: true});
 
 

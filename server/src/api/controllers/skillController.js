@@ -3,7 +3,7 @@ const { createSkillForAUser, deleteSkillForAUser, getSkillDetails } = require(".
 module.exports.createSkillForAUser = async(req, res)=> {
     const {skillName, skillLevel, employeeId} = req.body;
     try{
-        if(req.user.role.name === "superadmin" || req.user.employeeId === req.body.employeeId){
+        if(req.user.role.name === "superadmin" || req.user.employeeId === employeeId){
             const response = await createSkillForAUser({skillLevel, skillName, employeeId});
             return res.status(200).json({"message": "Created skill successfully"})
         }else{

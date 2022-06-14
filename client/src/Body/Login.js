@@ -11,6 +11,7 @@ import login from '../images/login.png'
 
 
 const Login = () => {
+    document.title = "Login"
     // const { Login, msg, clearMessage } = useContext(ProjectContext);
     const {userInfo} =useContext(ProjectContext)
     const [message,setMessage] = useState('')

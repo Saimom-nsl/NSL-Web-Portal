@@ -11,6 +11,7 @@ const {
     u_passwordChange,
     getUserInfo,
     getAllUser,
+    userUpdate,
     } = require("../../controllers/userController");
 const { Authorize, isMasterUser, errorsFoundMiddleware } = require("../../middleware/commonMiddlewares");
 
@@ -19,7 +20,7 @@ router.route("/signin")
 
 router.route("/userinfo")
     .get(Authorize,getUserInfo)
-    .put(Authorize, )
+    .put(Authorize, userUpdate)
 
 router.route("/alluser").get(Authorize, getAllUser)
 

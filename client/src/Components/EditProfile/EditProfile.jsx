@@ -75,14 +75,15 @@ const EditProfile = () => {
   //fetching user information for employeeId
   useEffect(()=> {
 
-    if(token){
-      getUserInfo(token, state._id).then(data=> {
+    if(token || user.token){
+      getUserInfo(token || user.token, state._id).then(data=> {
+        // console.log(data);
         setUserInfo(data.data);
       }).catch(err=> {
         console.log(err);
       })
     }
-  },[token])
+  },[token,user.token])
   // console.log(location.state);
   //   useEffect(()=>{
   //     if(token){
@@ -133,7 +134,7 @@ const EditProfile = () => {
   </Breadcrumb>
     </div>
     <Container>
-      <UpdateUserInformation user= {userInfo} />
+      <UpdateUserInformation employeeId={state._id}/>
     </Container>
     <Container>
  

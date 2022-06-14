@@ -11,13 +11,25 @@ import {
   Label,
 } from "reactstrap";
 import { getAllRoles } from "../../API/role";
+import { getUserInfo, updateUserInformation } from "../../API/user";
 import { ProjectContext } from "../../Context/createContext";
 import { userInfoFromToken } from "../../helper/tokenDecoder";
 
-const UpdateUserInformation = ({user: empUser}) => {
+const UpdateUserInformation = ({employeeId}) => {
   const [toggle, setToggole] = useState(false);
   const [roles, setRoles] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
   const { user, token } = useContext(ProjectContext);
+
+  const [userUpdateData, setUserUpdateData] = useState({
+    id: userInfo._id,
+    email: userInfo?.email,
+    password: "",
+    confirmPassword: "",
+    role: userInfo?.role,
+    isActive: userInfo?.isActive,
+  });
+  const { email, password, confirmPassword, role, isActive , id} = userUpdateData;
   
   useEffect(() => {
     if (token) {
@@ -27,20 +39,32 @@ const UpdateUserInformation = ({user: empUser}) => {
         })
         .catch((err) => console.log(err));
     }
-  }, [token]);
+  }, []);
+  //user info fetch
+  useEffect(()=> {
+    console.log("props", employeeId);
+    if(employeeId !== undefined){
+      getUserInfo(userInfoFromToken()?.token, employeeId).then(data=> {
+        setUserUpdateData({...userUpdateData,
+          email:data.data.email, 
+          isActive: data.data.isActive, 
+          role: data.data.role,
+          id: data.data._id
+        });
+        console.log("use effect", userUpdateData);
+
+      }).catch(err=> {
+        // console.log(err);
+      })
+    }
+    getUserInfo()
+  },[])
+
   const handleToggle = () => {
     setToggole(!toggle);
   };
 
-  const [userUpdateData, setUserUpdateData] = useState({
-    email: empUser.email || "",
-    password: "",
-    confirmPassword: "",
-    role: "",
-    isActive: empUser.isActive,
-  });
-  const { email, password, confirmPassword, role, isActive } = userUpdateData;
-
+  //input handle change
   const handleInputChange = (e) => {
     const target = e.target;
     const value = target.type === "checkbox"? target.checked : target.value
@@ -51,13 +75,31 @@ const UpdateUserInformation = ({user: empUser}) => {
 
   };
 
-  console.log(userUpdateData);
+
+  //submit user update information
+  const handleSubmit = (e)=> {
+    e.preventDefault();
+    if(password.length){
+      if(confirmPassword !== password){
+        // console.log(userUpdateData);
+        console.log("Password not correct");
+        return;
+      }
+    }
+    updateUserInformation(userInfoFromToken().token, 
+    {email, password, isActive, role}, id).then(data=> {
+      console.log(data);
+      setToggole(!toggle);
+    }).catch(err=> console.log(err))
+  }
+
+  // console.log(userUpdateData);
   return (
     <Container>
       <Button onClick={handleToggle}>Update User Information</Button>
       <Modal toggle={handleToggle} isOpen={toggle}>
         <ModalBody>
-          <Form>
+          <form onSubmit={handleSubmit}>
             <FormGroup>
               <Input name="email" type="email" 
               value={email}
@@ -90,6 +132,7 @@ const UpdateUserInformation = ({user: empUser}) => {
               value={role}
               onChange={handleInputChange}
             >
+              {/* <option >{role.name.toUpperCase()}</option> */}
                 
               {roles.map((role) => (
                 <option key={Math.random()} value={role._id}>
@@ -106,10 +149,10 @@ const UpdateUserInformation = ({user: empUser}) => {
               />
               <Label htmlFor="isActive">Active User</Label>
             </FormGroup>
-          </Form>
+          </form>
         </ModalBody>
         <ModalFooter>
-          <Button>Update User Info</Button>
+          <Button type="submit" onClick={handleSubmit}>Update User Info</Button>
         </ModalFooter>
       </Modal>
     </Container>

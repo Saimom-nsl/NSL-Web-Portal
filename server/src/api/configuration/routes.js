@@ -8,6 +8,8 @@ const v1TeamTaskRouter = require("../v1/routers/projectTaskRouter");
 const v1LeaveRequestRouter = require("../v1/routers/leaveRequestRouter");
 const v1RwpmRouter = require("../v1/routers/rwpmRouter");
 const v1SkillRouter = require("../v1/routers/skillRouters");
+const v1PrivateContentUploadRouter = require("../v1/routers/privateContentRouter");
+
 module.exports = (app) => {
     app.use("/api/v1/users", v1UserRouter);
     app.use("/api/v1/employees", v1EmployeeRouter);
@@ -17,7 +19,9 @@ module.exports = (app) => {
     app.use("/api/v1/tasks", v1TeamTaskRouter);
     app.use("/api/v1/leavetypes",v1LeaveTypeRouter);
     app.use("/api/v1/leaverequests", v1LeaveRequestRouter);
-    app.use("/api/v1/rwpms", v1RwpmRouter);       
+    app.use("/api/v1/rwpms", v1RwpmRouter);  
+    app.use("/api/v1/privatecontent", v1PrivateContentUploadRouter);       
+
     // app.use("/api/v1/departments", v1DepartmentRouter);
 
 }

@@ -2,6 +2,7 @@ import jwtDecode from 'jwt-decode'
 import React, { useContext, useState } from 'react'
 import {Accordion, AccordionItem, AccordionHeader, AccordionBody, UncontrolledAccordion, } from "reactstrap"
 import { ProjectContext } from '../../../Context/createContext'
+import PrivateContent from '../../OthersInformation/PrivateContent/PrivateContent'
 import Skill from '../../Skill/Skill'
 
 
@@ -24,7 +25,8 @@ const OthersInformation = ({employee}) => {
         Confidential
       </AccordionHeader>
       <AccordionBody accordionId="1">
-          Private Content
+        <div>Upload File</div>
+          <PrivateContent />
       </AccordionBody>
     </AccordionItem></> }
     {/* <AccordionItem>

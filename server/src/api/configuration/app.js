@@ -3,8 +3,9 @@ const express = require("express");
 const app = express();
 const { notFoundUrl } = require("../middleware/notFoundMiddleware");
 const errorMiddleware = require("../middleware/errorMiddleware");
-
-
+const path = require("path")
+global.__baseDir = path.join(__dirname, "../", "../", "../", "../", "/privateContent");
+// console.log(__baseDir);
 // index middleware
 require('./index')(app);
 

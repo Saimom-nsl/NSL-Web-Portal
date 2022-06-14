@@ -7,12 +7,18 @@ export const loginHandler = data => {
 }
 
 export const getUserInfo = (token,employeeId) => {
+    console.log("request", employeeId);
     return axios.get(`${API}/users/userinfo?employeeId=${employeeId}`, {headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
     }});
 }
 
-export const updateUserInformation = (token, employeeInfromation)=> {
-    return axios.put(`${API}/users/`)
+export const updateUserInformation = (token, employeeInfromation, userId)=> {
+    return axios.put(`${API}/users/userinfo?userid=${userId}`, employeeInfromation, {
+        headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+        }
+    })
 }

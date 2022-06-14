@@ -82,10 +82,12 @@ module.exports.getAllUser = async(req, res)=> {
 }
 //user info/role update for role
 module.exports.userUpdate = async(req, res)=>{
-    const {userId} = req.query;
-    const user = User.findOne({_id: userId});
+    const {userid} = req.query;
+    if(!userid) return res.status(400).json("Updated not possible")
+    if(req.user.role.name !== "superadmin" || req.user._id === userid) return res.status(400).json("You are authorize to update")
+    const user = User.findOne({_id: userid});
     if(!user) return res.status(400).json("User Not Found");
-    const result = await User.findOneAndUpdate({_id: userId}, {$set: {...req.body, token: ""}}, {new: true});
+    const result = await User.findOneAndUpdate({_id: userid}, {$set: {...req.body, token: ""}}, {new: true});
     return res.status(200).json({"message": "Updated succcessfully", "data": result})
 }
 
